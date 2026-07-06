@@ -6,7 +6,7 @@
 
 <p align="center">
   A free, recurring secure code review series for security engineers and developers.<br>
-  Real applications. Real vulnerabilities. Threat-model-first.
+  Real applications. Real vulnerabilities.
 </p>
 
 ---
