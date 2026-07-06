@@ -5,6 +5,7 @@ service handed to you before launch: build a mental model of what it protects, t
 flaw that breaks that model.
 
 **Date Posted**: 06-Jul-2026
+
 **Solution Will be Posted**: 23-Jul-2026
 
 ---
