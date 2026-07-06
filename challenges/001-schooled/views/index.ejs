@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schooled</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body
+  data-role="<%= user ? user.role : '' %>"
+  data-username="<%= user ? user.username : '' %>">
+
+  <header class="topbar">
+    <div class="brand">🔎 Schooled</div>
+    <div class="session">
+      <% if (user) { %>
+        Logged in as <strong><%= user.username %></strong>
+        <span class="role-badge role-<%= user.role %>"><%= user.role %></span>
+        <a class="logout" href="/?logout">Log out</a>
+      <% } else { %>
+        Not logged in
+      <% } %>
+    </div>
+  </header>
+
+  <main>
+    <p id="message" class="message" role="status"></p>
+
+    <% if (!user) { %>
+      <!-- Logged out: authentication forms -->
+      <section class="card">
+        <h2>Log in</h2>
+        <form id="login-form">
+          <label>Username <input name="username" autocomplete="username" required></label>
+          <label>Password <input name="password" type="password" autocomplete="current-password" required></label>
+          <button type="submit">Log in</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Register</h2>
+        <form id="register-form">
+          <label>Username <input name="username" required></label>
+          <label>Email <input name="email" type="email" required></label>
+          <label>Password <input name="password" type="password" autocomplete="new-password" required></label>
+          <label>Role
+            <select name="role">
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
+            </select>
+          </label>
+          <button type="submit">Create account</button>
+        </form>
+      </section>
+
+    <% } else { %>
+      <!-- Logged in: role-appropriate actions only -->
+
+      <section class="card">
+        <h2>Available courses</h2>
+        <ul id="courses" class="list"></ul>
+      </section>
+
+      <% if (user.role === 'teacher' || user.role === 'admin') { %>
+        <section class="card">
+          <h2>Create a course</h2>
+          <form id="create-course-form">
+            <label>Title <input name="title" required></label>
+            <label>Description <input name="description" required></label>
+            <label>Student limit <input name="studentLimit" type="number" min="1" value="25" required></label>
+            <label>Start date <input name="startDate" type="date" required></label>
+            <label>End date <input name="endDate" type="date" required></label>
+            <button type="submit">Create course</button>
+          </form>
+        </section>
+      <% } %>
+
+      <% if (user.role === 'student' || user.role === 'admin') { %>
+        <section class="card">
+          <h2>My enrollments</h2>
+          <ul id="enrollments" class="list"></ul>
+        </section>
+      <% } %>
+
+      <% if (user.role === 'admin') { %>
+        <section class="card">
+          <h2>All users</h2>
+          <ul id="users" class="list"></ul>
+        </section>
+      <% } %>
+    <% } %>
+  </main>
+
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Environment files — never commit real .env files. Each challenge ships a
+# `.env.example` (tracked); copy it to `.env` as part of the setup steps.
+.env
+.env.*
+!.env.example
+
+# Solutions — withheld until the reveal drop; keep locally but never commit.
+SOLUTION.md
+SOLUTION_FILLED.md

@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: schooled_postgres
+    environment:
+      POSTGRES_DB: schooled_db
+      POSTGRES_USER: schooled_user
+      POSTGRES_PASSWORD: schooled_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: schooled_app
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
