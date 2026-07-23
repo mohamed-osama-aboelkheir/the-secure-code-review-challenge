@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+  <title>Professional</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">📄 Professional</div>
+    <div class="session">
+      <span id="session-info">Not logged in</span>
+      <a href="#" id="logout-link" class="logout hidden">Log out</a>
+    </div>
+  </header>
+
+  <main>
+    <p id="message" class="message" role="status"></p>
+
+    <section class="card" id="auth-section">
+      <h2>Log in</h2>
+      <form id="login-form">
+        <label>Username <input name="username" autocomplete="username" required></label>
+        <label>Password <input name="password" type="password" autocomplete="current-password" required></label>
+        <button type="submit">Log in</button>
+      </form>
+    </section>
+
+    <section class="card" id="register-section">
+      <h2>Register</h2>
+      <form id="register-form">
+        <label>Username <input name="username" required></label>
+        <label>Password <input name="password" type="password" autocomplete="new-password" required></label>
+        <button type="submit">Create account</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Public profiles</h2>
+      <ul id="public-profiles-list" class="list"></ul>
+    </section>
+
+    <section class="card hidden" id="my-profiles-section">
+      <h2>My profiles</h2>
+      <button type="button" id="resume-btn">Download Resume PDF (first profile)</button>
+      <ul id="my-profiles-list" class="list"></ul>
+    </section>
+
+    <section class="card hidden" id="create-profile-section">
+      <h2>Create a profile</h2>
+      <form id="create-profile-form">
+        <label>Bio <textarea name="bio" rows="3" required></textarea></label>
+        <label class="checkbox"><input name="is_private" type="checkbox"> Private profile</label>
+        <div class="work-experiences" id="create-work-experiences"></div>
+        <button type="button" class="secondary" id="create-add-exp">+ Add work experience</button>
+        <button type="submit">Create profile</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

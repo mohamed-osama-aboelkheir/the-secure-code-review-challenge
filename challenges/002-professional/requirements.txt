@@ -1,0 +1,7 @@
+Flask==2.3.3
+PyJWT==2.8.0
+bcrypt==4.0.1
+pymongo==4.5.0
+reportlab==3.6.9
+python-dotenv==1.0.0
+Werkzeug==2.3.7
