@@ -18,6 +18,8 @@ Thumbs.db
 .env.*
 !.env.example
 
-# Solutions — withheld until the reveal drop; keep locally but never commit.
+# Solutions — withheld until the reveal drop; keep locally but never commit,
+# except the official published copy under solutions/<challenge>/SOLUTION.md.
 SOLUTION.md
 SOLUTION_FILLED.md
+!solutions/**/SOLUTION.md

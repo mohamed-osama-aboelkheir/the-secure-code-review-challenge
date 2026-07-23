@@ -94,6 +94,24 @@ A new drop lands **about every 2 weeks**. Each drop bundles:
   YouTube Channel [@AppSecUntangled](https://www.youtube.com/@AppSecUntangled), and Medium Blog 
   [AppSec Untangled](https://medium.com/appsec-untangled)
 
+Official solutions are published under [`solutions/`](solutions/), one folder per challenge
+(e.g. [`solutions/001-schooled/SOLUTION.md`](solutions/001-schooled/SOLUTION.md)).
+
+## Get notified — watch releases
+
+Every drop — each new challenge **and** each solution reveal — is published as a **GitHub Release**
+on this repo. Watching releases is the easiest way to know the moment a new one lands, without
+getting notified for every issue, PR, or discussion.
+
+1. Click **Watch** (top right of the repo) → **Custom**.
+2. Check **Releases** only, then **Apply**.
+
+<p align="center">
+  <img src="assets/watch-releases.png" alt="Configuring a custom watch for Releases only on GitHub" width="600">
+</p>
+
+You'll get a notification (and can subscribe via the repo's Atom feed) whenever a new challenge or
+solution release goes out — no need to keep checking back manually.
 
 ## Repository structure
 
@@ -103,9 +121,12 @@ A new drop lands **about every 2 weeks**. Each drop bundles:
 ├── SOLUTION_TEMPLATE.md          # copy this into your own notes per challenge
 ├── LICENSE
 ├── assets/                       # branding
-└── challenges/
-    └── 001-schooled/             # the full, deliberately-vulnerable application
-        └── README.md             # the challenge brief + how to run it
+├── challenges/
+│   └── 001-schooled/             # the full, deliberately-vulnerable application
+│       └── README.md             # the challenge brief + how to run it
+└── solutions/                    # official solutions, published as GitHub Releases
+    └── 001-schooled/
+        └── SOLUTION.md
 ```
 
 ## ⚠️ Disclaimer
