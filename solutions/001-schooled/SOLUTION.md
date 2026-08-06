@@ -1,5 +1,7 @@
 # Secure Code Review — Challenge #1: Schooled — Solution
 
+> 🎥 **This solution is explained in detail on YouTube:** [watch the walkthrough](https://youtu.be/Oc-IlLdRusE).
+
 # Part I: Review Steps
 
 *The methodology followed to build a mental model of the system before looking for the flaw.*
