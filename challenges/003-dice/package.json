@@ -1,0 +1,20 @@
+{
+  "name": "38_dice",
+  "version": "1.0.0",
+  "description": "Dice Roller & Random Word Selector Application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dompurify": "^3.3.0",
+    "express": "^5.1.0",
+    "jsdom": "^27.1.0",
+    "unorm": "^1.6.0"
+  }
+}
