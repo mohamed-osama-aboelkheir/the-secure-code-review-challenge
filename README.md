@@ -106,6 +106,9 @@ A new drop lands **about every 2 weeks**. Each drop bundles:
 Official solutions are published under [`solutions/`](solutions/), one folder per challenge
 (e.g. [`solutions/001-schooled/SOLUTION.md`](solutions/001-schooled/SOLUTION.md)).
 
+> 🎥 **All challenge solutions are explained in detail in this YouTube playlist:**
+> [watch the walkthroughs](https://www.youtube.com/playlist?list=PLDrEVWZfxVmg).
+
 ## Get notified — watch releases
 
 Every drop — each new challenge **and** each solution reveal — is published as a **GitHub Release**
