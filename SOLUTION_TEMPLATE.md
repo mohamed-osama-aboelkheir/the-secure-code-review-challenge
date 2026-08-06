@@ -9,14 +9,14 @@
 
 ---
 
-## 1. Application scope & architecture
+## 1. 🗺️ Application scope & architecture
 
-<!-- What does the app do? What are its assets and trust boundaries? What's the tech stack
-     (language, framework, datastore, auth), and how do the components fit together? -->
+<!-- What does the app do? What are its assets and roles? What's the tech stack (language,
+     framework, datastore, auth), and how do the components fit together? -->
 
 
 
-## 2. Entry points
+## 2. 🚪 Entry points
 
 <!-- Every place untrusted input enters: web pages/forms, backend endpoints/routes, APIs,
      file uploads, background jobs, etc. Note the auth/role required for each. -->
@@ -25,28 +25,34 @@
 | --- | --- | --- | --- |
 |  |  |  |  |
 
-## 3. Dangerous sinks (code & dependencies)
+## 3. 🎯 Dangerous sinks (code & dependencies)
 
-<!-- Where could untrusted data cause harm: SQL/NoSQL queries, OS commands, HTML rendering,
-     deserialization, file paths, redirects, template engines, vulnerable dependencies, etc. -->
-
-
-
-## 4. Threat model
-
-### Business-logic vulnerabilities
-<!-- Flaws in the intended rules/flows: authorization gaps, IDOR, privilege escalation,
-     workflow bypasses, missing ownership checks, etc. -->
+<!-- Where user input could change behavior / cause harm: SQL/NoSQL queries, OS commands, HTML/DOM
+     rendering, template engines, deserialization, file paths, redirects, vulnerable
+     dependencies, etc. -->
 
 
 
-### Source-to-sink vulnerabilities
-<!-- Untrusted source reaching a dangerous sink: injection (SQL/OS/etc.), XSS, SSRF, path
-     traversal, deserialization, etc. Trace source → transformation → sink. -->
+## 4. 🧩 Threat model
+
+<!-- Apply two categories: business-logic (should be there, isn't — checked per entry point) and
+     source-to-sink (shouldn't be there, could be — checked per dangerous sink). -->
+
+### 🔓 Business-logic vulnerabilities
+<!-- Checked at every entry point (#2). Things that SHOULD be there but are missing: missing/broken
+     authentication, missing/broken authorization (IDOR, missing tenant isolation, privilege
+     escalation), missing CSRF protection on mutating calls, workflow bypasses, etc. -->
 
 
 
-## 5. Mitigation review
+### 💉 Source-to-sink (injection) vulnerabilities
+<!-- Checked at every dangerous sink (#3). Things that SHOULDN'T be there but could be: untrusted
+     input reaching a sink and causing SQL/NoSQL injection, XSS, command injection, SSTI, SSRF,
+     path traversal, deserialization, etc. Trace source → transformation → sink. -->
+
+
+
+## 5. 🔍 Mitigation review
 
 <!-- For each threat above, is it mitigated in the code? How and WHERE (file:line)?
      Note things that only *look* mitigated. -->
@@ -55,7 +61,7 @@
 | --- | --- | --- |
 |  |  |  |
 
-## 6. Potential vulnerabilities & exploitation
+## 6. 🧪 Potential vulnerabilities & exploitation
 
 <!-- The issue(s) you believe are real. For each: the vulnerability class, the exact code path,
      and your exploitation attempt (steps / commands / payloads) and result. -->
@@ -67,7 +73,7 @@
 
 
 
-## 7. Suggested fix
+## 7. 🛠️ Suggested fix
 
 <!-- For each exploitable vulnerability: the primary fix, plus any defense-in-depth. -->
 

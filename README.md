@@ -62,15 +62,24 @@ It's the deliberate-practice companion to this methodology:
 
 ## Suggested methodology
 
-1. Understand the application's scope and architecture.
-2. Identify the entry points (e.g. web pages and backend endpoints/routes).
-3. Identify the dangerous sinks in the code and its dependencies (e.g. SQL queries, OS commands,
-   HTML rendering).
-4. Threat-model using two categories: **business-logic vulnerabilities** and **source-to-sink
-   vulnerabilities**.
-5. For each threat, determine whether it is mitigated in the code — and how / where.
-6. Identify potential vulnerabilities and try to exploit them.
-7. For each exploitable vulnerability, suggest a fix.
+1. 🗺️ **Understand the application's scope and architecture** — what it does, its roles, tech
+   stack, and how the pieces fit together.
+2. 🚪 **Identify the entry points** — every place user input enters, e.g. web pages/forms and
+   backend endpoints/routes.
+3. 🎯 **Identify the dangerous sinks** in the code and its dependencies — places where user input
+   could change behavior, e.g. SQL queries, HTML/DOM rendering, OS commands, template engines.
+4. 🧩 **Build a threat model** by applying two categories:
+   - 🔓 **Business-logic vulnerabilities** — things that *should* be there but are missing. Check
+     this at **every entry point**: missing/broken authentication, missing/broken authorization
+     (e.g. IDOR, missing tenant isolation), missing CSRF protection on mutating calls, etc.
+   - 💉 **Source-to-sink (injection) vulnerabilities** — things that *shouldn't* be there but
+     could be. Check this at **every dangerous sink**: can user input reach it and cause SQL
+     injection, XSS, command injection, SSTI, etc.
+5. 🔍 **Review mitigations** — for each threat, determine whether it is mitigated in the code, and
+   how / where.
+6. 🧪 **Exploit** — identify potential vulnerabilities (missing/broken mitigations) and try to
+   exploit them.
+7. 🛠️ **Fix** — for each exploitable vulnerability, suggest a fix.
 
 ## Record your solution (privately)
 
@@ -90,8 +99,8 @@ A new drop lands **about every 2 weeks**. Each drop bundles:
 - the **full solution** to the previous challenge (the correct answer, why the plausible alternatives
   don't fit, the "why it looks safe" analysis, reproducible exploitation steps, the fix, and
   real-world CVE grounding).
-- I will aslo demo the solution along with the steps i used to find it, exploit it, and fix it on my 
-  YouTube Channel [@AppSecUntangled](https://www.youtube.com/@AppSecUntangled), and Medium Blog 
+- I will also demo the solution along with the steps I used to find it, exploit it, and fix it on my
+  YouTube Channel [@AppSecUntangled](https://www.youtube.com/@AppSecUntangled), and Medium Blog
   [AppSec Untangled](https://medium.com/appsec-untangled)
 
 Official solutions are published under [`solutions/`](solutions/), one folder per challenge
