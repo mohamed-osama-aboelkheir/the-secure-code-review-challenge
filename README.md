@@ -9,9 +9,6 @@
   Real applications. Real vulnerabilities.
 </p>
 
-> 🎥 **All challenge solutions are explained in detail in this YouTube playlist:**
-> [watch the walkthroughs](https://www.youtube.com/playlist?list=PLDrEVWZfxVmg).
-
 ---
 
 ## What this is
@@ -24,6 +21,9 @@ review it locally.
 You review the whole application the way you would on the job — threat-model it, find the flaw,
 prove it's exploitable, and propose a fix — then compare your reasoning against the published
 solution when it drops.
+
+> 🎥 **All challenge solutions are explained in detail in this YouTube playlist:**
+> [watch the walkthroughs](https://www.youtube.com/playlist?list=PLDrEVWZfxVmg).
 
 ## Who is this for
 
