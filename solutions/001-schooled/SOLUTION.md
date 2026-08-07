@@ -1,6 +1,22 @@
 # Secure Code Review — Challenge #1: Schooled — Solution
 
-> 🎥 **This solution is explained in detail on YouTube:** [watch the walkthrough](https://youtu.be/Oc-IlLdRusE).
+<table>
+<tr>
+<td width="100%">
+
+<a href="https://youtu.be/Oc-IlLdRusE">
+  <img src="https://img.youtube.com/vi/Oc-IlLdRusE/hqdefault.jpg" align="right" width="240" alt="Watch the walkthrough">
+</a>
+
+### 🎥 This solution is explained in detail on my YouTube Channel <img src="../../assets/AppSec_Untangled_Logo.jpg" width="30"> [AppSec Untangled](https://www.youtube.com/@AppSecUntangled)
+
+Full walkthrough of the review process, the finding, and the fix.
+
+[![Watch on YouTube](https://img.shields.io/badge/▶_Watch_the_walkthrough-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/Oc-IlLdRusE)
+
+</td>
+</tr>
+</table>
 
 # Part I: Review Steps
 
