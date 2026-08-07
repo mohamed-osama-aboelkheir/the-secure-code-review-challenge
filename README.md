@@ -35,6 +35,12 @@ Clean code can still be vulnerable — through its dependencies (CVE-2023-33733,
 [Read the solution →](./solutions/002-professional/SOLUTION.md)
 
 </td>
+<td>
+  
+[🎯 All Previous challenges](./challenges)
+
+[✅ All Previous Solutions](./solutions)
+</td>
 </tr>
 </table>
 
