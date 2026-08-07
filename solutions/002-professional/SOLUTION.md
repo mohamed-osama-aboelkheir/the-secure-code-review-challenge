@@ -1,7 +1,22 @@
 # Secure Code Review — Challenge #2: Professional — Solution
 
-> 🎥 **This solution is explained in detail on YouTube:** [watch the walkthrough](https://youtu.be/2j3dM9OiOT0).
+<table>
+<tr>
+<td width="100%">
 
+<a href="https://youtu.be/2j3dM9OiOT0">
+  <img src="https://img.youtube.com/vi/2j3dM9OiOT0/hqdefault.jpg" align="right" width="240" alt="Watch the walkthrough">
+</a>
+
+### 🎥 This solution is explained in detail on my YouTube Channel <img src="../../assets/AppSec_Untangled_Logo.jpg" width="30"> [AppSec Untangled](https://www.youtube.com/@AppSecUntangled)
+
+Full walkthrough of the review process, the finding, and the fix.
+
+[![Watch on YouTube](https://img.shields.io/badge/▶_Watch_the_walkthrough-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/2j3dM9OiOT0)
+
+</td>
+</tr>
+</table>
 ## 1. 🗺️ Application scope & architecture
 
 **What it does:** "Professional" lets users register, log in, create one or more professional
