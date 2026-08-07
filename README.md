@@ -11,6 +11,33 @@
 
 ---
 
+<table>
+<tr>
+<td>
+
+### 🎯 Latest Challenge: #003 — *Dice*
+**Status:** 🟢 Live now · Solution will be posted on **Aug 20, 2026**
+
+[Start the challenge →](./challenges/003-dice/)
+
+</td>
+<td>
+
+### ✅ Latest Solution: #002 — *Professional*
+
+<details>
+<summary>💡 Reveal the lesson (spoiler)</summary>
+
+Clean code can still be vulnerable — through its dependencies (CVE-2023-33733, ReportLab RCE)
+
+</details>
+
+[Read the solution →](./solutions/002-professional/SOLUTION.md)
+
+</td>
+</tr>
+</table>
+
 ## What this is
 
 Every couple of weeks, this repo publishes a new **secure code review challenge**: a complete,
