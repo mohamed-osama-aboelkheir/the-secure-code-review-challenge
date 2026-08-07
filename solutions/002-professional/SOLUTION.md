@@ -1,5 +1,7 @@
 # Secure Code Review — Challenge #2: Professional — Solution
 
+> 🎥 **This solution is explained in detail on YouTube:** [watch the walkthrough](https://youtu.be/2j3dM9OiOT0).
+
 ## 1. 🗺️ Application scope & architecture
 
 **What it does:** "Professional" lets users register, log in, create one or more professional
