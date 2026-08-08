@@ -17,6 +17,7 @@ Full walkthrough of the review process, the finding, and the fix.
 </td>
 </tr>
 </table>
+
 ## 1. 🗺️ Application scope & architecture
 
 **What it does:** "Professional" lets users register, log in, create one or more professional
