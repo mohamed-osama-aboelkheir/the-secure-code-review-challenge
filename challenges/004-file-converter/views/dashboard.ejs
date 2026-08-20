@@ -11,11 +11,11 @@
   <form method="post" action="/convert" enctype="multipart/form-data" class="form">
 
     <label for="file">Document</label>
-    <input id="file" name="file" type="file" required>
+    <input id="file" name="file" type="file" accept="<%= acceptTypes %>" data-accept="<%= acceptTypes %>" required>
     <p class="muted small"><%= uploadHint %></p>
 
     <label for="targetFormat">Convert to</label>
-    <select id="targetFormat" name="targetFormat" required>
+    <select id="targetFormat" name="targetFormat" data-target-format required>
       <% formats.forEach(function (format) { %>
         <option value="<%= format %>"><%= format %></option>
       <% }); %>

@@ -20,6 +20,7 @@ function setDatabase(database) {
 }
 
 const UPLOAD_HINT = `Allowed types: ${ALLOWED_EXTENSIONS.join(', ')} (max ${MAX_FILE_SIZE / (1024 * 1024)}MB)`;
+const ACCEPT_TYPES = ALLOWED_EXTENSIONS.join(',');
 
 router.use((req, res, next) => {
   res.locals.user = null;
@@ -185,6 +186,7 @@ router.get('/dashboard', requireUser, async (req, res) => {
       jobs,
       formats: ALLOWED_FORMATS,
       uploadHint: UPLOAD_HINT,
+      acceptTypes: ACCEPT_TYPES,
       error: null
     });
   } catch (error) {
@@ -210,6 +212,7 @@ router.post('/convert', requireUser, assignJobId, async (req, res) => {
       jobs,
       formats: ALLOWED_FORMATS,
       uploadHint: UPLOAD_HINT,
+      acceptTypes: ACCEPT_TYPES,
       error: message
     });
   };
