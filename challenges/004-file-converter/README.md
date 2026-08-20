@@ -16,8 +16,8 @@ protect, then find the one flaw that breaks that model.
 File Converter is a small asynchronous conversion platform:
 
 - **Users** register and log in; sessions are cookie-based (`express-session`).
-- Authenticated users **upload a document** (`.docx`, `.pdf`, or `.md`, up to 10 MB) and pick a
-  target format.
+- Authenticated users **upload a document** (`.docx` or `.md`, up to 10 MB) and pick a target
+  format.
 - Each upload becomes a **conversion job** with its own job ID. The conversion itself runs in the
   background by invoking **Pandoc**.
 - Users **poll the job status** by job ID and, once it's `completed`, **download** the converted
@@ -174,8 +174,8 @@ curl -s http://localhost:3000/api/convert/$JOB_ID/download \
 - `GET /api` — API information
 - `GET /health` — health check
 
-**Supported formats:** input `.docx`, `.pdf`, `.md` — output `docx`, `pdf`, `md` (target must differ
-from the input format). Max upload size: 10 MB.
+**Supported formats:** input `.docx`, `.md` — output `docx`, `pdf`, `md` (target must differ from
+the input format). Max upload size: 10 MB.
 
 ## Record your solution
 

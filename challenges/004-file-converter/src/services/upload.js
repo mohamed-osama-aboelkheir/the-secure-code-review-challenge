@@ -7,7 +7,9 @@ const fs = require('fs').promises;
  * entry points accept the same file types, size limit, and storage naming.
  */
 
-const ALLOWED_EXTENSIONS = ['.docx', '.pdf', '.md'];
+// Input types pandoc can read. PDF is deliberately absent: pandoc writes PDF
+// but has no PDF reader, so a .pdf upload could never convert.
+const ALLOWED_EXTENSIONS = ['.docx', '.md'];
 const ALLOWED_FORMATS = ['docx', 'pdf', 'md'];
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB limit
 const UPLOADS_DIR = path.join(__dirname, '../../uploads');
@@ -65,7 +67,9 @@ const upload = multer({
     if (ALLOWED_EXTENSIONS.includes(ext)) {
       cb(null, true);
     } else {
-      cb(new Error(`Invalid file type. Allowed types: ${ALLOWED_EXTENSIONS.join(', ')}`));
+      const error = new Error(`Invalid file type. Allowed types: ${ALLOWED_EXTENSIONS.join(', ')}`);
+      error.status = 400; // a rejected upload is the client's mistake, not a server fault
+      cb(error);
     }
   }
 });

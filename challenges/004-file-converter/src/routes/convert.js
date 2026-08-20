@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer');
 const path = require('path');
 const fs = require('fs').promises;
 const { requireAuth } = require('../middleware/auth');
@@ -147,6 +148,29 @@ router.get('/convert/:jobId/download', requireAuth, async (req, res) => {
     console.error('Download route error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
+});
+
+// Upload problems arrive as errors from multer's middleware. Answer them in
+// JSON with a client-error status; without this they reach Express's default
+// handler, which replies with an HTML page containing a stack trace.
+router.use((err, req, res, next) => {
+  if (res.headersSent) {
+    return next(err);
+  }
+
+  if (err instanceof multer.MulterError) {
+    const message = err.code === 'LIMIT_FILE_SIZE'
+      ? 'File is too large. Maximum size: 10MB'
+      : `Upload failed: ${err.message}`;
+    return res.status(400).json({ error: message });
+  }
+
+  if (err && err.status === 400) {
+    return res.status(400).json({ error: err.message });
+  }
+
+  console.error('Convert router error:', err);
+  return res.status(500).json({ error: 'Internal server error' });
 });
 
 module.exports = router;
