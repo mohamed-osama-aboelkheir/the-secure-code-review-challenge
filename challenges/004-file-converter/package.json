@@ -1,0 +1,25 @@
+{
+  "name": "39_file_converter",
+  "version": "1.0.0",
+  "description": "File Converter Service",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-session": "^1.17.3",
+    "mongodb": "^6.3.0",
+    "bcrypt": "^5.1.1",
+    "multer": "^1.4.5-lts.1",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

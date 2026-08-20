@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Runtime upload/output directories created by challenge apps
+uploads/
+
 # Logs
 *.log
 npm-debug.log*

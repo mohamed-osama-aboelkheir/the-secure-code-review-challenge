@@ -15,10 +15,10 @@
 <tr>
 <td>
 
-### 🎯 Latest Challenge: #003 — *Dice*
-**Status:** ✅ Solution posted **Aug 20, 2026** · next challenge coming soon
+### 🎯 Latest Challenge: #004 — *File Converter*
+**Status:** 🟢 Live now · Solution will be posted on **Sep 03, 2026**
 
-[Start the challenge →](./challenges/003-dice/)
+[Start the challenge →](./challenges/004-file-converter/)
 
 </td>
 <td>
