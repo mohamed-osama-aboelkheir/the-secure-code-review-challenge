@@ -2,7 +2,7 @@ FROM node:20-slim
 
 # Install pandoc and basic LaTeX for PDF conversion
 RUN apt-get update && \
-    apt-get install -y pandoc texlive-latex-base texlive-fonts-recommended && \
+    apt-get install -y pandoc texlive-latex-base texlive-latex-recommended texlive-fonts-recommended && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

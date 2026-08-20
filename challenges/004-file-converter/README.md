@@ -1,8 +1,8 @@
 # Secure Code Review Challenge #4: File Converter
 
-**File Converter** is a document-conversion API: users upload a file, a background job converts it
-with Pandoc, and they download the result. Your task is to review it the way you would review a real
-service handed to you before launch: build a mental model of what it does and what it should
+**File Converter** is a document-conversion service: users upload a file, a background job converts
+it with Pandoc, and they download the result. Your task is to review it the way you would review a
+real service handed to you before launch: build a mental model of what it does and what it should
 protect, then find the one flaw that breaks that model.
 
 **Date Posted**: 20-Aug-2026
@@ -23,13 +23,15 @@ File Converter is a small asynchronous conversion platform:
 - Users **poll the job status** by job ID and, once it's `completed`, **download** the converted
   file.
 - Data is stored in **MongoDB**; uploads and outputs live on disk in `uploads/`.
-- The API is an **Express.js** (Node) app, packaged with **Docker Compose**.
+- The app is **Express.js** (Node), packaged with **Docker Compose**. It exposes two surfaces over
+  the same data: a **JSON API** and a **server-rendered web UI** built with **EJS** templates.
 
 The full source is in this directory. It is a complete, working application — not a snippet. Read all
 of it, including its dependencies.
 
-There is **no browser UI** in this one — the entire attack surface is the JSON API plus the
-multipart upload endpoint, so review every route and the background worker that runs behind them.
+Both surfaces are in scope: the browser UI (`src/routes/ui.js`, `views/`, `public/`) and the JSON
+API (`src/routes/auth.js`, `src/routes/convert.js`) are separate route sets backed by the same store
+and the same background worker.
 
 ## Your mission
 
@@ -52,10 +54,12 @@ cp .env.example .env        # throwaway dev secrets — never reuse them
 docker-compose up --build
 ```
 
-This starts MongoDB and the API. The first build is slow — the image installs Pandoc and a LaTeX
+This starts MongoDB and the app. The first build is slow — the image installs Pandoc and a LaTeX
 distribution so that PDF output works.
 
-- API: <http://localhost:3000> (used by the examples below)
+- Web UI: <http://localhost:3000/> — open in a browser to register, upload, watch a conversion
+  run, and download the result
+- API: <http://localhost:3000/api> (used by the examples below)
 - Health check: <http://localhost:3000/health>
 - MongoDB: `localhost:27017`
 
@@ -67,6 +71,16 @@ docker-compose down          # add -v to also drop the MongoDB volume
 
 > ⚠️ This app is **deliberately vulnerable**. Run it locally only — never expose it to a network you
 > don't fully control. The `.env.example` you copy holds throwaway dev secrets; never reuse them.
+
+## Using the web UI (normal usage)
+
+Open <http://localhost:3000/> and you can drive the whole service from the browser:
+
+- **Register** an account, or **log in** to an existing one.
+- **Upload a document** and choose its target format, then **start the conversion**.
+- Watch the job page **poll its own status** — it shows a spinner while the job is `pending` or
+  `processing` and reveals the download link the moment it reports `completed`.
+- Review **previous conversions** on the dashboard and **download** any finished result.
 
 ## Using the API (normal usage)
 
@@ -146,8 +160,18 @@ curl -s http://localhost:3000/api/convert/$JOB_ID/download \
 - `GET /api/convert/:jobId` — job status
 - `GET /api/convert/:jobId/download` — download the converted file
 
+**Web UI** *(server-rendered pages; the conversion pages require a signed-in session)*
+- `GET /login`, `POST /login` — log in
+- `GET /register`, `POST /register` — create an account
+- `POST /logout` — log out
+- `GET /dashboard` — upload form plus your previous conversions
+- `POST /convert` — submit a conversion from the dashboard form
+- `GET /jobs/:jobId` — job page with live status polling
+- `GET /jobs/:jobId/download` — download the converted file
+
 **Utility**
-- `GET /` — API information
+- `GET /` — the web UI
+- `GET /api` — API information
 - `GET /health` — health check
 
 **Supported formats:** input `.docx`, `.pdf`, `.md` — output `docx`, `pdf`, `md` (target must differ

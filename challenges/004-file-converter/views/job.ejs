@@ -1,0 +1,38 @@
+<%- include('partials/header') %>
+
+<p class="muted small"><a href="/dashboard">&larr; My conversions</a></p>
+
+<h1>Conversion <span class="mono"><%= job.jobId %></span></h1>
+
+<section class="card job"
+         data-job-id="<%= job.jobId %>"
+         <% if (job.status === 'pending' || job.status === 'processing') { %>data-job-poll="true"<% } %>>
+  <dl class="details">
+    <dt>Source file</dt>
+    <dd><%= job.originalFilename %></dd>
+
+    <dt>Target format</dt>
+    <dd class="mono"><%= job.targetFormat %></dd>
+
+    <dt>Submitted</dt>
+    <dd class="muted"><%= new Date(job.createdAt).toISOString().replace('T', ' ').slice(0, 19) %> UTC</dd>
+
+    <dt>Status</dt>
+    <dd>
+      <span class="badge badge-<%= job.status %>" id="job-status"><%= job.status %></span>
+      <span class="spinner" id="job-spinner" hidden aria-hidden="true"></span>
+    </dd>
+  </dl>
+
+  <p class="muted small" id="job-waiting" hidden>Converting&hellip; this page updates automatically.</p>
+
+  <div id="job-actions" <% if (job.status !== 'completed') { %>hidden<% } %>>
+    <a class="primary button" id="job-download" href="/jobs/<%= encodeURIComponent(job.jobId) %>/download">Download result</a>
+  </div>
+
+  <p class="alert" id="job-failed" <% if (job.status !== 'failed') { %>hidden<% } %>>
+    Conversion failed. Check that the source document is valid for the target format.
+  </p>
+</section>
+
+<%- include('partials/footer') %>

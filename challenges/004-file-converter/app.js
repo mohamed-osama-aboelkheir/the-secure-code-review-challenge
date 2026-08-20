@@ -7,6 +7,8 @@ require('dotenv').config();
 const DatabaseStore = require('./src/store/database');
 const authRoutes = require('./src/routes/auth');
 const convertRoutes = require('./src/routes/convert');
+const uiRoutes = require('./src/routes/ui');
+const uploadService = require('./src/services/upload');
 const { setDatabase: setAuthDatabase } = require('./src/middleware/auth');
 
 const app = express();
@@ -15,15 +17,33 @@ const PORT = process.env.PORT || 3000;
 // Initialize database
 const db = new DatabaseStore();
 
+// View engine for the server-rendered UI
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(mongoSanitize());
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Session configuration
+// Response headers for the browser-facing pages
+app.use((req, res, next) => {
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
+  );
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Referrer-Policy', 'same-origin');
+  next();
+});
+
+// Session configuration. The secret comes from the environment only: there is
+// no in-code default to fall back to, so a missing value stops the server.
 const sessionSecret = process.env.SESSION_SECRET;
-if (!sessionSecret || sessionSecret === 'change-me-in-production-make-it-long-and-random') {
-  console.warn('WARNING: Using default session secret. Change SESSION_SECRET in production!');
+if (!sessionSecret) {
+  console.error('SESSION_SECRET is not set. Refusing to start.');
+  process.exit(1);
 }
 
 app.use(session({
@@ -42,8 +62,10 @@ app.use(session({
 setAuthDatabase(db);
 authRoutes.setDatabase(db);
 convertRoutes.setDatabase(db);
+uiRoutes.setDatabase(db);
+uploadService.setDatabase(db);
 
-// Routes
+// JSON API
 app.use('/api/auth', authRoutes);
 app.use('/api', convertRoutes);
 
@@ -56,8 +78,8 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Root endpoint
-app.get('/', (req, res) => {
+// API information endpoint
+app.get('/api', (req, res) => {
   res.json({
     message: 'File Converter Service API',
     version: '1.0.0',
@@ -76,6 +98,9 @@ app.get('/', (req, res) => {
   });
 });
 
+// Server-rendered UI (mounted last so the API keeps its own paths)
+app.use('/', uiRoutes);
+
 // Initialize database and start server
 async function startServer() {
   try {
@@ -85,7 +110,8 @@ async function startServer() {
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
       console.log(`Health check: http://localhost:${PORT}/health`);
-      console.log(`API root: http://localhost:${PORT}/`);
+      console.log(`Web UI:       http://localhost:${PORT}/`);
+      console.log(`API root:     http://localhost:${PORT}/api`);
     });
   } catch (error) {
     console.error('Failed to start server:', error);

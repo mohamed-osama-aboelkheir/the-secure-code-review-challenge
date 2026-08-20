@@ -157,6 +157,28 @@ class DatabaseStore {
     }
   }
 
+  async findJobsByUserId(userId) {
+    try {
+      const jobs = await this.jobsCollection
+        .find({ userId: new ObjectId(userId) })
+        .sort({ createdAt: -1 })
+        .limit(50)
+        .toArray();
+      return jobs.map((job) => ({
+        jobId: job.jobId,
+        userId: job.userId.toString(),
+        status: job.status,
+        inputPath: job.inputPath,
+        outputPath: job.outputPath,
+        targetFormat: job.targetFormat,
+        originalFilename: job.originalFilename,
+        createdAt: job.createdAt
+      }));
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async updateJobStatus(jobId, status, outputPath = null) {
     try {
       const update = { status };

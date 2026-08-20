@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %> &middot; File Converter</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">File Converter</a>
+    <% if (user) { %>
+      <div class="session">
+        <span class="who">Signed in as <strong><%= user.username %></strong></span>
+        <form method="post" action="/logout" class="inline">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="linkish">Log out</button>
+        </form>
+      </div>
+    <% } %>
+  </header>
+  <main class="wrap">

@@ -1,0 +1,23 @@
+<%- include('partials/header') %>
+
+<h1>Log in</h1>
+
+<% if (error) { %>
+  <p class="alert" role="alert"><%= error %></p>
+<% } %>
+
+<form method="post" action="/login" class="card form">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+  <label for="username">Username</label>
+  <input id="username" name="username" type="text" value="<%= username %>" autocomplete="username" required autofocus>
+
+  <label for="password">Password</label>
+  <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+  <button type="submit" class="primary">Log in</button>
+</form>
+
+<p class="muted">Need an account? <a href="/register">Register</a>.</p>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,62 @@
+<%- include('partials/header') %>
+
+<h1>My conversions</h1>
+
+<% if (error) { %>
+  <p class="alert" role="alert"><%= error %></p>
+<% } %>
+
+<section class="card">
+  <h2>New conversion</h2>
+  <form method="post" action="/convert" enctype="multipart/form-data" class="form">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+    <label for="file">Document</label>
+    <input id="file" name="file" type="file" required>
+    <p class="muted small"><%= uploadHint %></p>
+
+    <label for="targetFormat">Convert to</label>
+    <select id="targetFormat" name="targetFormat" required>
+      <% formats.forEach(function (format) { %>
+        <option value="<%= format %>"><%= format %></option>
+      <% }); %>
+    </select>
+
+    <button type="submit" class="primary">Start conversion</button>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Previous conversions</h2>
+
+  <% if (jobs.length === 0) { %>
+    <p class="muted">You have not converted anything yet.</p>
+  <% } else { %>
+    <table class="jobs">
+      <thead>
+        <tr>
+          <th>Job</th>
+          <th>File</th>
+          <th>Target</th>
+          <th>Status</th>
+          <th>Submitted</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% jobs.forEach(function (job) { %>
+          <tr>
+            <td class="mono"><%= job.jobId %></td>
+            <td><%= job.originalFilename %></td>
+            <td class="mono"><%= job.targetFormat %></td>
+            <td><span class="badge badge-<%= job.status %>"><%= job.status %></span></td>
+            <td class="muted small"><%= new Date(job.createdAt).toISOString().replace('T', ' ').slice(0, 19) %> UTC</td>
+            <td><a href="/jobs/<%= encodeURIComponent(job.jobId) %>">View</a></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } %>
+</section>
+
+<%- include('partials/footer') %>

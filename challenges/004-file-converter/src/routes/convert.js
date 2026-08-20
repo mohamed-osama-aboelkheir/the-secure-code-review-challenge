@@ -1,9 +1,9 @@
 const express = require('express');
-const multer = require('multer');
 const path = require('path');
 const fs = require('fs').promises;
 const { requireAuth } = require('../middleware/auth');
 const { convertFile } = require('../services/conversion');
+const { ALLOWED_FORMATS, assignJobId, upload } = require('../services/upload');
 
 const router = express.Router();
 
@@ -12,58 +12,6 @@ let db = null;
 function setDatabase(database) {
   db = database;
 }
-
-// Assign next job ID before multer
-async function assignJobId(req, res, next) {
-  if (!db) return res.status(500).json({ error: 'Database not initialized' });
-  try {
-    req.uploadJobId = await db.getNextJobId();
-    next();
-  } catch (err) {
-    console.error('assignJobId error:', err);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-}
-
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-  destination: async (req, file, cb) => {
-    const uploadsDir = path.join(__dirname, '../../uploads');
-    try {
-      await fs.mkdir(uploadsDir, { recursive: true });
-      cb(null, uploadsDir);
-    } catch (error) {
-      cb(error);
-    }
-  },
-  filename: (req, file, cb) => {
-    const jobId = req.uploadJobId;
-    const lastDot = file.originalname.lastIndexOf('.');
-    const ext = (lastDot >= 0 ? file.originalname.slice(lastDot) : '').toLowerCase();
-    cb(null, `${jobId}${ext}`);
-  }
-});
-
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 10 * 1024 * 1024 // 10MB limit
-  },
-  fileFilter: (req, file, cb) => {
-    const allowedExtensions = ['.docx', '.pdf', '.md'];
-    console.log('File:', file.originalname);
-    // Extension = last '.' and following characters
-    const lastDot = file.originalname.lastIndexOf('.');
-    const ext = (lastDot >= 0 ? file.originalname.slice(lastDot) : '').toLowerCase();
-    console.log('Extension:', ext);
-
-    if (allowedExtensions.includes(ext)) {
-      cb(null, true);
-    } else {
-      cb(new Error(`Invalid file type. Allowed types: ${allowedExtensions.join(', ')}`));
-    }
-  }
-});
 
 // POST /convert - Submit a file conversion job
 router.post('/convert', requireAuth, assignJobId, upload.single('file'), async (req, res) => {
@@ -77,11 +25,10 @@ router.post('/convert', requireAuth, assignJobId, upload.single('file'), async (
     }
 
     const { targetFormat } = req.body;
-    const allowedFormats = ['docx', 'pdf', 'md'];
 
-    if (!targetFormat || !allowedFormats.includes(targetFormat.toLowerCase())) {
+    if (!targetFormat || !ALLOWED_FORMATS.includes(targetFormat.toLowerCase())) {
       return res.status(400).json({
-        error: `Invalid target format. Allowed formats: ${allowedFormats.join(', ')}`
+        error: `Invalid target format. Allowed formats: ${ALLOWED_FORMATS.join(', ')}`
       });
     }
 
