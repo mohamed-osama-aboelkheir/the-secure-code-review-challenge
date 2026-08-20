@@ -9,7 +9,6 @@
 <section class="card">
   <h2>New conversion</h2>
   <form method="post" action="/convert" enctype="multipart/form-data" class="form">
-    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
     <label for="file">Document</label>
     <input id="file" name="file" type="file" required>

@@ -53,6 +53,8 @@ app.use(session({
   cookie: {
     httpOnly: true,
     secure: false, // Set to true in production with HTTPS
+    // Lax keeps the cookie off cross-site form posts, so a form on another
+    // origin cannot drive the UI's state-changing routes as the signed-in user.
     sameSite: 'lax',
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }

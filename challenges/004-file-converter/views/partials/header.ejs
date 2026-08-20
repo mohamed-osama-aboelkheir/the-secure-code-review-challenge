@@ -13,7 +13,6 @@
       <div class="session">
         <span class="who">Signed in as <strong><%= user.username %></strong></span>
         <form method="post" action="/logout" class="inline">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
           <button type="submit" class="linkish">Log out</button>
         </form>
       </div>

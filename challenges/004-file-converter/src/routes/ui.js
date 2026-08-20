@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs').promises;
 const bcrypt = require('bcrypt');
-const { attachCsrfToken, hasValidCsrfToken, verifyCsrf } = require('../middleware/csrf');
 const { convertFile } = require('../services/conversion');
 const {
   ALLOWED_EXTENSIONS,
@@ -22,8 +21,10 @@ function setDatabase(database) {
 
 const UPLOAD_HINT = `Allowed types: ${ALLOWED_EXTENSIONS.join(', ')} (max ${MAX_FILE_SIZE / (1024 * 1024)}MB)`;
 
-// Every page gets a CSRF token to embed in its forms; every form post is checked.
-router.use(attachCsrfToken);
+router.use((req, res, next) => {
+  res.locals.user = null;
+  next();
+});
 
 /**
  * Loads the signed-in user for a page request. Unlike the API's requireAuth,
@@ -88,7 +89,7 @@ router.get('/login', (req, res) => {
   res.render('login', { title: 'Log in', error: null, username: '' });
 });
 
-router.post('/login', verifyCsrf, async (req, res) => {
+router.post('/login', async (req, res) => {
   const username = typeof req.body.username === 'string' ? req.body.username : '';
   const password = typeof req.body.password === 'string' ? req.body.password : '';
 
@@ -134,7 +135,7 @@ router.get('/register', (req, res) => {
   res.render('register', { title: 'Create an account', error: null, username: '', email: '' });
 });
 
-router.post('/register', verifyCsrf, async (req, res) => {
+router.post('/register', async (req, res) => {
   const username = typeof req.body.username === 'string' ? req.body.username.trim() : '';
   const email = typeof req.body.email === 'string' ? req.body.email.trim() : '';
   const password = typeof req.body.password === 'string' ? req.body.password : '';
@@ -172,7 +173,7 @@ router.post('/register', verifyCsrf, async (req, res) => {
   }
 });
 
-router.post('/logout', verifyCsrf, (req, res) => {
+router.post('/logout', (req, res) => {
   req.session.destroy(() => res.redirect('/login'));
 });
 
@@ -213,19 +214,9 @@ router.post('/convert', requireUser, assignJobId, async (req, res) => {
     });
   };
 
-  // multer has to parse the multipart body before the token field is readable,
-  // so the upload is validated first and discarded if the token does not check out.
   const uploadError = await runUpload(req, res);
   if (uploadError) {
     return renderError(400, uploadError.message);
-  }
-
-  if (!hasValidCsrfToken(req)) {
-    await discardUpload(req.file);
-    return res.status(403).render('error', {
-      title: 'Request rejected',
-      message: 'Your session has expired or the form was not submitted from this site. Please go back and try again.'
-    });
   }
 
   try {

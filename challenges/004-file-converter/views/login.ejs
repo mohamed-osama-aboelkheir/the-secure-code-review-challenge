@@ -7,7 +7,6 @@
 <% } %>
 
 <form method="post" action="/login" class="card form">
-  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
   <label for="username">Username</label>
   <input id="username" name="username" type="text" value="<%= username %>" autocomplete="username" required autofocus>
