@@ -1,4 +1,4 @@
-FROM node:20-slim
+FROM node:24-slim
 
 # LaTeX for PDF conversion
 RUN apt-get update && \
@@ -32,8 +32,11 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies (use npm install when package-lock.json is not present)
-RUN npm install --omit=dev
+# Install dependencies (use npm install when package-lock.json is not present).
+# npm itself is only needed for this step, and it bundles its own dependency
+# tree, so it is removed afterwards rather than shipped in the runtime image.
+RUN npm install --omit=dev && \
+    rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
 
 # Copy application code
 COPY . .
