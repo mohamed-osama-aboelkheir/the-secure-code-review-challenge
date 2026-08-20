@@ -28,7 +28,7 @@
 <details>
 <summary>💡 Reveal the lesson (spoiler)</summary>
 
-A sanitizer is only as good as its place in the pipeline — normalizing (NFKC) *after* sanitizing let fullwidth characters revive a stripped tag into DOM XSS (CWE-180)
+A sanitizer is only as good as its place in the pipeline — modifying its output *after* sanitizing let a stripped tag come back to life as DOM XSS (CWE-180)
 
 </details>
 
