@@ -16,23 +16,23 @@
 <td>
 
 ### 🎯 Latest Challenge: #003 — *Dice*
-**Status:** 🟢 Live now · Solution will be posted on **Aug 20, 2026**
+**Status:** ✅ Solution posted **Aug 20, 2026** · next challenge coming soon
 
 [Start the challenge →](./challenges/003-dice/)
 
 </td>
 <td>
 
-### ✅ Latest Solution: #002 — *Professional*
+### ✅ Latest Solution: #003 — *Dice*
 
 <details>
 <summary>💡 Reveal the lesson (spoiler)</summary>
 
-Clean code can still be vulnerable — through its dependencies (CVE-2023-33733, ReportLab RCE)
+A sanitizer is only as good as its place in the pipeline — normalizing (NFKC) *after* sanitizing let fullwidth characters revive a stripped tag into DOM XSS (CWE-180)
 
 </details>
 
-[Read the solution →](./solutions/002-professional/SOLUTION.md)
+[Read the solution →](./solutions/003-dice/SOLUTION.md)
 
 </td>
 <td>
