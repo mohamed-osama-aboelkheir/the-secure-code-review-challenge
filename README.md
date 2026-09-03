@@ -16,23 +16,23 @@
 <td>
 
 ### 🎯 Latest Challenge: #004 — *File Converter*
-**Status:** 🟢 Live now · Solution will be posted on **Sep 03, 2026**
+**Status:** ✅ Solution posted · next challenge coming soon
 
 [Start the challenge →](./challenges/004-file-converter/)
 
 </td>
 <td>
 
-### ✅ Latest Solution: #003 — *Dice*
+### ✅ Latest Solution: #004 — *File Converter*
 
 <details>
 <summary>💡 Reveal the lesson (spoiler)</summary>
 
-A sanitizer is only as good as its place in the pipeline — modifying its output *after* sanitizing let a stripped tag come back to life as DOM XSS (CWE-180)
+Authentication is not authorization — a route that fetches an object by a user-supplied ID must check that the object belongs to the caller, or any logged-in user can read everyone else's data (IDOR / Broken Object-Level Authorization, CWE-639 / OWASP API1:2023)
 
 </details>
 
-[Read the solution →](./solutions/003-dice/SOLUTION.md)
+[Read the solution →](./solutions/004-file-converter/SOLUTION.md)
 
 </td>
 <td>
