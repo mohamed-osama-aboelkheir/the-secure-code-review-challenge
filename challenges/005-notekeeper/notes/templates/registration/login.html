@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in — Notekeeper</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 400px; margin: 60px auto; padding: 20px; }
+        h1 { text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 4px; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { background: #4CAF50; color: white; border: none; padding: 10px 12px; cursor: pointer; width: 100%; }
+        button:hover { background: #45a049; }
+        .errors { color: #c0392b; margin-bottom: 15px; }
+        .alt { text-align: center; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Notekeeper</h1>
+    <h2>Log in</h2>
+
+    {% if form.errors %}
+        <p class="errors">Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_username">Username</label>
+            <input type="text" name="username" id="id_username" autofocus required>
+        </div>
+        <div class="form-group">
+            <label for="id_password">Password</label>
+            <input type="password" name="password" id="id_password" required>
+        </div>
+        <input type="hidden" name="next" value="{{ next }}">
+        <button type="submit">Log in</button>
+    </form>
+
+    <p class="alt">No account? <a href="{% url 'signup' %}">Sign up</a></p>
+</body>
+</html>

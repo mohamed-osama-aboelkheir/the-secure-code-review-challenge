@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Notes</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .note { background: #f9f9f9; border-left: 4px solid #4CAF50; padding: 15px; margin-bottom: 15px; }
+        .actions { margin-top: 10px; }
+        button, .btn { background: #4CAF50; color: white; border: none; padding: 8px 12px; cursor: pointer; }
+        button:hover, .btn:hover { background: #45a049; }
+        .form-group { margin-bottom: 15px; }
+        input[type="text"], textarea { width: 100%; padding: 8px; }
+        .logout { float: right; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <h1>My Notes <a href="{% url 'logout' %}" class="btn logout">Logout</a></h1>
+
+    <div style="margin-bottom: 20px;">
+        <form action="{% url 'export_notes' %}" method="get" style="display:inline;">
+            <button type="submit">Export Notes</button>
+        </form>
+        <form action="{% url 'import_notes' %}" method="post" enctype="multipart/form-data" style="display:inline; margin-left:10px;">
+            {% csrf_token %}
+            <input type="file" name="import_file" accept=".json,.csv,.txt" required style="display:inline;">
+            <button type="submit">Import Notes</button>
+        </form>
+    </div>
+    <!-- Create Note Form -->
+    <div id="create-form">
+        <h2>Create New Note</h2>
+        <form id="note-form" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="title" placeholder="Note title" required>
+            </div>
+            <div class="form-group">
+                <textarea name="content" rows="4" placeholder="Note content" required></textarea>
+            </div>
+            <button type="submit">Save Note</button>
+        </form>
+    </div>
+
+    <!-- Edit Note Form (hidden by default) -->
+    <div id="edit-form" class="hidden">
+        <h2>Edit Note</h2>
+        <form id="edit-note-form" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="note_id" id="edit-note-id">
+            <div class="form-group">
+                <input type="text" name="title" id="edit-note-title" required>
+            </div>
+            <div class="form-group">
+                <textarea name="content" id="edit-note-content" rows="4" required></textarea>
+            </div>
+            <button type="submit">Update Note</button>
+            <button type="button" onclick="cancelEdit()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Notes List -->
+    <div id="notes-list">
+        <h2>Your Notes</h2>
+        {% if notes %}
+            {% for note in notes %}
+                <div class="note" id="note-{{ note.id }}">
+                    <h3>{{ note.title }}</h3>
+                    <p>{{ note.content }}</p>
+                    <div class="actions">
+                        <button onclick="editNote('{{ note.id }}', '{{ note.title|escapejs }}', '{{ note.content|escapejs }}')">Edit</button>
+                        <button onclick="deleteNote('{{ note.id }}')">Delete</button>
+                    </div>
+                    <small>Last updated: {{ note.updated_at }}</small>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>You don't have any notes yet.</p>
+        {% endif %}
+    </div>
+
+
+
+    <script>
+        // Handle form submission for creating notes
+        document.getElementById('note-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('/create_note/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    window.location.reload(); // Refresh to show new note
+                } else {
+                    alert('Error creating note');
+                }
+            });
+        });
+
+        // Handle form submission for editing notes
+        document.getElementById('edit-note-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const noteId = formData.get('note_id');
+
+            fetch('/update_note/' + noteId + '/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    window.location.reload(); // Refresh to show updated note
+                } else {
+                    alert('Error updating note');
+                }
+            });
+        });
+
+        // Show edit form with note data
+        function editNote(id, title, content) {
+            document.getElementById('create-form').classList.add('hidden');
+            document.getElementById('edit-form').classList.remove('hidden');
+            document.getElementById('edit-note-id').value = id;
+            document.getElementById('edit-note-title').value = title;
+            document.getElementById('edit-note-content').value = content;
+            window.scrollTo(0, 0);
+        }
+
+        // Cancel editing
+        function cancelEdit() {
+            document.getElementById('create-form').classList.remove('hidden');
+            document.getElementById('edit-form').classList.add('hidden');
+        }
+
+        // Delete a note
+        function deleteNote(id) {
+            if (confirm('Are you sure you want to delete this note?')) {
+                fetch('/delete_note/' + id + '/', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `csrfmiddlewaretoken={{ csrf_token }}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        document.getElementById('note-' + id).remove();
+                        if (document.querySelectorAll('.note').length === 0) {
+                            document.getElementById('notes-list').innerHTML = '<p>You don\'t have any notes yet.</p>';
+                        }
+                    } else {
+                        alert('Error deleting note');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up — Notekeeper</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 400px; margin: 60px auto; padding: 20px; }
+        h1 { text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 4px; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { background: #4CAF50; color: white; border: none; padding: 10px 12px; cursor: pointer; width: 100%; }
+        button:hover { background: #45a049; }
+        .errors { color: #c0392b; margin-bottom: 10px; }
+        .helptext { color: #666; font-size: 0.8em; }
+        .alt { text-align: center; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Notekeeper</h1>
+    <h2>Create an account</h2>
+
+    <form method="post" action="{% url 'signup' %}">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}<div class="helptext">{{ field.help_text|safe }}</div>{% endif %}
+                {% for error in field.errors %}<div class="errors">{{ error }}</div>{% endfor %}
+            </div>
+        {% endfor %}
+        <button type="submit">Sign up</button>
+    </form>
+
+    <p class="alt">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+</body>
+</html>

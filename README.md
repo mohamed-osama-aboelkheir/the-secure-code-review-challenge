@@ -15,10 +15,10 @@
 <tr>
 <td>
 
-### 🎯 Latest Challenge: #004 — *File Converter*
-**Status:** ✅ Solution posted · next challenge coming soon
+### 🎯 Latest Challenge: #005 — *Notekeeper*
+**Status:** 🟢 Live now · Solution will be posted on **Sep 17, 2026**
 
-[Start the challenge →](./challenges/004-file-converter/)
+[Start the challenge →](./challenges/005-notekeeper/)
 
 </td>
 <td>
