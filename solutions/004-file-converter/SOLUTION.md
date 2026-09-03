@@ -5,15 +5,15 @@
 <td width="100%">
 
 <!-- TODO: YouTube walkthrough — replace VIDEO_ID once recorded/published -->
-<a href="https://youtu.be/VIDEO_ID">
-  <img src="https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg" align="right" width="240" alt="Watch the walkthrough">
+<a href="https://youtu.be/R_xdc6y9Rho">
+  <img src="https://img.youtube.com/vi/R_xdc6y9Rho/hqdefault.jpg" align="right" width="240" alt="Watch the walkthrough">
 </a>
 
 ### 🎥 This solution is explained in detail on my YouTube Channel <img src="../../assets/AppSec_Untangled_Logo.jpg" width="30"> [AppSec Untangled](https://www.youtube.com/@AppSecUntangled)
 
 Full walkthrough of the review process, the finding, and the fix.
 
-[![Watch on YouTube](https://img.shields.io/badge/▶_Watch_the_walkthrough-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/VIDEO_ID)
+[![Watch on YouTube](https://img.shields.io/badge/▶_Watch_the_walkthrough-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/R_xdc6y9Rho)
 
 <!-- TODO: replace the badge link above with the real video URL when published -->
 
