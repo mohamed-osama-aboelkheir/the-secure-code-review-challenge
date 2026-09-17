@@ -16,23 +16,23 @@
 <td>
 
 ### 🎯 Latest Challenge: #005 — *Notekeeper*
-**Status:** 🟢 Live now · Solution will be posted on **Sep 17, 2026**
+**Status:** ✅ Solution posted · next challenge coming soon
 
 [Start the challenge →](./challenges/005-notekeeper/)
 
 </td>
 <td>
 
-### ✅ Latest Solution: #004 — *File Converter*
+### ✅ Latest Solution: #005 — *Notekeeper*
 
 <details>
 <summary>💡 Reveal the lesson (spoiler)</summary>
 
-Authentication is not authorization — a route that fetches an object by a user-supplied ID must check that the object belongs to the caller, or any logged-in user can read everyone else's data (IDOR / Broken Object-Level Authorization, CWE-639 / OWASP API1:2023)
+Never deserialize untrusted input — calling `pickle.loads()` on an uploaded file lets an attacker run arbitrary code on the server (Insecure Deserialization, CWE-502 / OWASP A08:2021)
 
 </details>
 
-[Read the solution →](./solutions/004-file-converter/SOLUTION.md)
+[Read the solution →](./solutions/005-notekeeper/SOLUTION.md)
 
 </td>
 <td>
