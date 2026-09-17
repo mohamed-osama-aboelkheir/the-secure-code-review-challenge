@@ -15,10 +15,10 @@
 <tr>
 <td>
 
-### 🎯 Latest Challenge: #005 — *Notekeeper*
-**Status:** ✅ Solution posted · next challenge coming soon
+### 🎯 Latest Challenge: #006 — *FileDrop*
+**Status:** 🟢 Live now · Solution will be posted on **Oct 01, 2026**
 
-[Start the challenge →](./challenges/005-notekeeper/)
+[Start the challenge →](./challenges/006-filedrop/)
 
 </td>
 <td>

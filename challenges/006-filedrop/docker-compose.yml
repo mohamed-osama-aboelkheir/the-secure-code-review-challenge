@@ -1,0 +1,42 @@
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: filedrop_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: filedrop_app
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/filedrop
+      - PORT=3000
+      - STORAGE_ROOT=/app/data/files
+    env_file:
+      - .env
+    volumes:
+      - file_storage:/app/data/files
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - app-network
+
+volumes:
+  mongodb_data:
+  file_storage:
+
+networks:
+  app-network:
+    driver: bridge
