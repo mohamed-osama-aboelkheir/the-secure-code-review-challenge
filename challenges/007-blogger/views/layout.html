@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Blogger{% endblock %}</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto; padding: 1rem; }
+    nav { display: flex; gap: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid #ccc; padding-bottom: 0.5rem; }
+    nav a { color: #0066cc; text-decoration: none; }
+    nav a:hover { text-decoration: underline; }
+    .user { margin-left: auto; }
+    h1 { font-size: 1.5rem; }
+    .post { border: 1px solid #eee; padding: 1rem; margin-bottom: 1rem; border-radius: 4px; }
+    .post .meta { color: #666; font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .post.private { border-left: 4px solid #c00; }
+    form label { display: block; margin-top: 0.5rem; }
+    form input, form textarea { width: 100%; max-width: 400px; padding: 0.25rem; }
+    form textarea { min-height: 100px; }
+    .error { color: #c00; }
+    .success { color: #060; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">Feed</a>
+    <a href="/my-posts">My Posts</a>
+    <a href="/search">Search</a>
+    {% if user %}
+    <span class="user">{{ user.username }} | <a href="/logout">Logout</a></span>
+    {% else %}
+    <span class="user"><a href="/login">Login</a> | <a href="/register">Register</a></span>
+    {% endif %}
+  </nav>
+  {% block content %}{% endblock %}
+</body>
+</html>

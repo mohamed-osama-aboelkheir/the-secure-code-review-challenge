@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %}Register – Blogger{% endblock %}
+{% block content %}
+  <h1>Register</h1>
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+  <form method="post" action="/api/auth/register">
+    <input type="hidden" name="web" value="1">
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" required>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required>
+    <button type="submit" style="margin-top: 0.5rem;">Register</button>
+  </form>
+  <p><a href="/login">Already have an account? Login</a></p>
+{% endblock %}

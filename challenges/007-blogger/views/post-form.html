@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}{{ "Edit" if post else "New" }} Post – Blogger{% endblock %}
+{% block content %}
+  <h1>{{ "Edit" if post else "New" }} Post</h1>
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+  <form method="post" action="{{ action }}">
+    <label for="title">Title</label>
+    <input type="text" id="title" name="title" value="{{ post.title | default('') }}" required>
+    <label for="body">Body</label>
+    <textarea id="body" name="body" required>{{ post.body | default('') }}</textarea>
+    <label><input type="checkbox" name="is_private" value="1" {% if post and post.isPrivate %}checked{% endif %}> Private (only you can view)</label>
+    <button type="submit" style="margin-top: 0.5rem;">{{ "Update" if post else "Create" }}</button>
+  </form>
+{% endblock %}

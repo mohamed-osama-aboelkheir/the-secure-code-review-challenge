@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block title %}My Posts – Blogger{% endblock %}
+{% block content %}
+  <h1>My Posts</h1>
+  <p><a href="/posts/new">New post</a></p>
+  {% for post in posts %}
+  <article class="post {% if post.isPrivate %}private{% endif %}">
+    <div class="meta">
+      {{ post.createdAt | date }}
+      {% if post.isPrivate %}(private){% endif %}
+      · <a href="/posts/{{ post.id }}/edit">Edit</a>
+      · <a href="/posts/{{ post.id }}/delete">Delete</a>
+    </div>
+    <h2><a href="/posts/{{ post.id }}">{{ post.title }}</a></h2>
+    <p>{{ post.body }}</p>
+  </article>
+  {% else %}
+  <p>You have no posts yet. <a href="/posts/new">Create one</a>.</p>
+  {% endfor %}
+{% endblock %}

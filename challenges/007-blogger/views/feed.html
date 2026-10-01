@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Feed – Blogger{% endblock %}
+{% block content %}
+  <h1>Feed</h1>
+  <p>Public posts and your private posts, newest first.</p>
+  {% for post in posts %}
+  <article class="post {% if post.isPrivate %}private{% endif %}">
+    <div class="meta">By {{ post.authorUsername }} · {{ post.createdAt | date }}{% if post.isPrivate %} · (private){% endif %}</div>
+    <h2><a href="/posts/{{ post.id }}">{{ post.title }}</a></h2>
+    <p>{{ post.body }}</p>
+  </article>
+  {% else %}
+  <p>No posts yet.</p>
+  {% endfor %}
+{% endblock %}

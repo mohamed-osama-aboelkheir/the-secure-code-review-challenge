@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}Search – Blogger{% endblock %}
+{% block content %}
+  <h1>Search</h1>
+  <form method="get" action="/search">
+    <label for="q">Search posts</label>
+    <input type="text" id="q" name="q" value="{{ query | default('') }}">
+    <button type="submit" style="margin-top: 0.5rem;">Search</button>
+  </form>
+  {% if query is defined and query !== '' %}
+  <h2>Results</h2>
+  {% for post in posts %}
+  <article class="post {% if post.isPrivate %}private{% endif %}">
+    <div class="meta">By {{ post.authorUsername }} · {% if post.isPrivate %}(private){% endif %}</div>
+    <h2><a href="/posts/{{ post.id }}">{{ post.title }}</a></h2>
+    <p>{{ post.body }}</p>
+  </article>
+  {% else %}
+  <p>No results.</p>
+  {% endfor %}
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,42 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: blogger_postgres
+    environment:
+      POSTGRES_DB: blogger_db
+      POSTGRES_USER: blogger_user
+      POSTGRES_PASSWORD: blogger_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U blogger_user -d blogger_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+  app:
+    build: .
+    container_name: blogger_app
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://blogger_user:blogger_password@postgres:5432/blogger_db
+      PORT: 3000
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}{{ post.title }} – Blogger{% endblock %}
+{% block content %}
+  <article class="post {% if post.isPrivate %}private{% endif %}">
+    <div class="meta">By {{ post.authorUsername }} · {{ post.createdAt | date }}{% if post.isPrivate %} · Private{% endif %}</div>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.body }}</p>
+    {% if user and user.id == post.userId %}
+    <p><a href="/posts/{{ post.id }}/edit">Edit</a> · <a href="/posts/{{ post.id }}/delete" data-method="delete">Delete</a></p>
+    {% endif %}
+  </article>
+{% endblock %}

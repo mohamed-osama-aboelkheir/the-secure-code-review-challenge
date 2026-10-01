@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}Delete Post – Blogger{% endblock %}
+{% block content %}
+  <h1>Delete post?</h1>
+  <p>Are you sure you want to delete "{{ post.title }}"?</p>
+  <form method="post" action="/posts/{{ post.id }}/delete">
+    <button type="submit">Delete</button>
+    <a href="/posts/{{ post.id }}">Cancel</a>
+  </form>
+{% endblock %}
