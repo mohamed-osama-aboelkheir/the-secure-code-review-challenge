@@ -15,24 +15,24 @@
 <tr>
 <td>
 
-### 🎯 Latest Challenge: #006 — *FileDrop*
-**Status:** 🟢 Live now · Solution will be posted on **Oct 01, 2026**
+### 🎯 Latest Challenge: #007 — *Blogger*
+**Status:** 🟢 Live now · Solution will be posted on **Oct 15, 2026**
 
-[Start the challenge →](./challenges/006-filedrop/)
+[Start the challenge →](./challenges/007-blogger/)
 
 </td>
 <td>
 
-### ✅ Latest Solution: #005 — *Notekeeper*
+### ✅ Latest Solution: #006 — *FileDrop*
 
 <details>
 <summary>💡 Reveal the lesson (spoiler)</summary>
 
-Never deserialize untrusted input — calling `pickle.loads()` on an uploaded file lets an attacker run arbitrary code on the server (Insecure Deserialization, CWE-502 / OWASP A08:2021)
+Never build a filesystem path from user-controlled input — an unvalidated username used as the storage directory name lets an attacker traverse (`../`) into other accounts' files (Path Traversal, CWE-22 / CWE-73)
 
 </details>
 
-[Read the solution →](./solutions/005-notekeeper/SOLUTION.md)
+[Read the solution →](./solutions/006-filedrop/SOLUTION.md)
 
 </td>
 <td>
@@ -55,8 +55,19 @@ You review the whole application the way you would on the job — threat-model i
 prove it's exploitable, and propose a fix — then compare your reasoning against the published
 solution when it drops.
 
-> 🎥 **All challenge solutions are explained in detail in this YouTube playlist:**
-> [watch the walkthroughs](https://www.youtube.com/playlist?list=PLDrEVWZfxVmg).
+<table>
+<tr>
+<td width="100%">
+
+### 🎥 All challenge solutions are explained in detail on my YouTube Channel <img src="assets/AppSec_Untangled_Logo.jpg" width="30"> [AppSec Untangled](https://www.youtube.com/@AppSecUntangled)
+
+Full walkthroughs of the review process, the findings, and the fixes.
+
+[![Watch on YouTube](https://img.shields.io/badge/▶_Watch_the_playlist-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/playlist?list=PLDrEVWZfxVmg)
+
+</td>
+</tr>
+</table>
 
 ## Who is this for
 
