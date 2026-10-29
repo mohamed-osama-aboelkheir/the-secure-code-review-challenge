@@ -16,23 +16,23 @@
 <td>
 
 ### 🎯 Latest Challenge: #008 — *Employee Directory*
-**Status:** 🟢 Live now · Solution will be posted on **Oct 30, 2026**
+**Status:** ✅ Solution posted · Next challenge coming soon
 
 [Start the challenge →](./challenges/008-employee-directory/)
 
 </td>
 <td>
 
-### ✅ Latest Solution: #007 — *Blogger*
+### ✅ Latest Solution: #008 — *Employee Directory*
 
 <details>
 <summary>💡 Reveal the lesson (spoiler)</summary>
 
-A query builder only protects the queries that go through it — user input pasted into a raw SQL string (`knex.raw` with a template literal) lets an attacker bypass the app's access rules and read the whole database. Bind every value as a parameter (SQL Injection, CWE-89)
+Strong authorization checks don't help once attacker script runs in an admin's browser — turning off the template engine's output encoding (`autoescape: false`) lets any employee store HTML in a profile field that executes in the admin's session and quietly uses it to make the attacker an admin. Keep output encoding on (Stored XSS, CWE-79 / CWE-116)
 
 </details>
 
-[Read the solution →](./solutions/007-blogger/SOLUTION.md)
+[Read the solution →](./solutions/008-employee-directory/SOLUTION.md)
 
 </td>
 <td>

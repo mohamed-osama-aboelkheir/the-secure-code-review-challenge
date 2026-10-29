@@ -1,0 +1,19 @@
+rules:
+  - id: nunjucks-autoescape-disabled
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >-
+      Nunjucks is configured with autoescape disabled, so every {{ value }} in every template is
+      written into the HTML unencoded. Any user-controlled value rendered by these templates becomes
+      XSS. Remove `autoescape: false` (the default is true) and use `| safe` only for trusted HTML.
+    metadata:
+      cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      owasp: "A03:2021 - Injection"
+      references:
+        - https://mozilla.github.io/nunjucks/api.html#configure
+        - https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
+      category: security
+      confidence: HIGH
+    pattern-either:
+      - pattern: "$NUNJUCKS.configure(..., {..., autoescape: false, ...})"
+      - pattern: "new $NUNJUCKS.Environment(..., {..., autoescape: false, ...})"
