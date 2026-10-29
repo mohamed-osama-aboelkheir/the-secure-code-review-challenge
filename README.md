@@ -15,10 +15,10 @@
 <tr>
 <td>
 
-### 🎯 Latest Challenge: #008 — *Employee Directory*
-**Status:** ✅ Solution posted · Next challenge coming soon
+### 🎯 Latest Challenge: #009 — *ProjectHub*
+**Status:** 🟢 Live now · Solution will be posted on **Nov 12, 2026**
 
-[Start the challenge →](./challenges/008-employee-directory/)
+[Start the challenge →](./challenges/009-projecthub/)
 
 </td>
 <td>
