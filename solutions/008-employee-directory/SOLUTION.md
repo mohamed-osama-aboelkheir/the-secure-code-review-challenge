@@ -4,11 +4,15 @@
 <tr>
 <td width="100%">
 
-### 🎥 A video walkthrough of this solution is coming soon on my YouTube Channel <img src="../../assets/AppSec_Untangled_Logo.jpg" width="30"> [AppSec Untangled](https://www.youtube.com/@AppSecUntangled)
+<a href="https://youtu.be/puGX2iZNln0">
+  <img src="https://img.youtube.com/vi/puGX2iZNln0/hqdefault.jpg" align="right" width="240" alt="Watch the walkthrough">
+</a>
 
-Full walkthrough of the review process, the finding, and the fix — subscribe to get notified when it's out.
+### 🎥 This solution is explained in detail on my YouTube Channel <img src="../../assets/AppSec_Untangled_Logo.jpg" width="30"> [AppSec Untangled](https://www.youtube.com/@AppSecUntangled)
 
-[![Coming soon](https://img.shields.io/badge/▶_Walkthrough_coming_soon-555555?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@AppSecUntangled)
+Full walkthrough of the review process, the finding, and the fix.
+
+[![Watch on YouTube](https://img.shields.io/badge/▶_Watch_the_walkthrough-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/puGX2iZNln0)
 
 </td>
 </tr>
