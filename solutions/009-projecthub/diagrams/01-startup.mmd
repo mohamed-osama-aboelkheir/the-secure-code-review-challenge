@@ -1,0 +1,19 @@
+sequenceDiagram
+%% @icon App tabler:coffee
+%% @icon Security tabler:shield-lock
+%% @icon Mongo tabler:brand-mongodb
+    actor Dev as Developer
+    participant Compose as docker compose
+    participant App as ProjectHubApplication
+    participant Security as SecurityConfig
+    participant Mongo as MongoDB
+    Dev->>Compose: docker-compose up --build
+    Compose->>Compose: Dockerfile: mvn package -> app.jar
+    Compose->>App: CMD java -jar app.jar
+    App->>App: main() -> SpringApplication.run()
+    App->>App: @SpringBootApplication scans com.projecthub
+    App->>Security: create @Configuration beans
+    Security->>Security: @Bean SecurityFilterChain
+    Security->>Security: addFilterBefore(JwtAuthFilter)
+    App->>Mongo: connect (Spring Data)
+    App-->>Dev: listening on :3000

@@ -16,23 +16,23 @@
 <td>
 
 ### 🎯 Latest Challenge: #009 — *ProjectHub*
-**Status:** 🟢 Live now · Solution will be posted on **Nov 12, 2026**
+**Status:** ✅ Solution posted · Next challenge coming soon
 
 [Start the challenge →](./challenges/009-projecthub/)
 
 </td>
 <td>
 
-### ✅ Latest Solution: #008 — *Employee Directory*
+### ✅ Latest Solution: #009 — *ProjectHub*
 
 <details>
 <summary>💡 Reveal the lesson (spoiler)</summary>
 
-Strong authorization checks don't help once attacker script runs in an admin's browser — turning off the template engine's output encoding (`autoescape: false`) lets any employee store HTML in a profile field that executes in the admin's session and quietly uses it to make the attacker an admin. Keep output encoding on (Stored XSS, CWE-79 / CWE-116)
+A template engine with output encoding on is still an arbitrary-code interpreter the moment *user input* becomes the template **source** — letting any low-privileged member submit a "report template" that the server compiles and runs leads straight to remote code execution. Treat customizable templates as code and render user-provided formats with non-executable substitution or a hardened sandbox (Server-Side Template Injection → RCE, CWE-1336 / CWE-94)
 
 </details>
 
-[Read the solution →](./solutions/008-employee-directory/SOLUTION.md)
+[Read the solution →](./solutions/009-projecthub/SOLUTION.md)
 
 </td>
 <td>

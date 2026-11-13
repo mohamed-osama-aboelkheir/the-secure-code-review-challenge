@@ -1,0 +1,17 @@
+sequenceDiagram
+%% @icon Project tabler:route
+%% @icon Service tabler:settings
+%% @icon Report tabler:template
+%% @icon Mongo tabler:brand-mongodb
+    actor Member as Project member
+    participant Project as ProjectController
+    participant Service as ProjectService
+    participant Mongo as ProjectStore
+    participant Report as ReportService
+    Member->>Project: POST /api/projects/{id}/report {template}
+    Project->>Service: generateReport(id, user, template)
+    Service->>Service: getForMember(id, user)
+    Service->>Mongo: findById(projectId)
+    Service->>Report: render(template, project)
+    Report->>Report: new Template(reader).process()
+    Report-->>Member: 200 {report}

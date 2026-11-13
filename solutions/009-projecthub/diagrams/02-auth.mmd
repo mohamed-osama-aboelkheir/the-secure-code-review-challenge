@@ -1,0 +1,18 @@
+sequenceDiagram
+%% @icon Page tabler:route
+%% @icon Auth tabler:settings
+%% @icon JWT tabler:key
+%% @icon Mongo tabler:brand-mongodb
+    actor User as User
+    participant Page as PageController
+    participant Auth as AuthService
+    participant Mongo as UserStore
+    participant JWT as JwtService
+    User->>Page: POST /register (username, password)
+    Page->>Auth: register(username, password)
+    Auth->>Mongo: insert user (bcrypt hash)
+    User->>Page: POST /login (username, password)
+    Page->>Auth: login(username, password)
+    Auth->>JWT: issue(userId)
+    JWT-->>Page: signed JWT (HS256)
+    Page-->>User: Set-Cookie token (HttpOnly)

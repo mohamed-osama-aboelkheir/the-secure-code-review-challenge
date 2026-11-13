@@ -1,0 +1,17 @@
+sequenceDiagram
+%% @icon Member tabler:route
+%% @icon Project tabler:settings
+%% @icon Mongo tabler:brand-mongodb
+    actor Owner as Owner
+    participant Member as MemberController
+    participant Project as ProjectService
+    participant Mongo as ProjectStore
+    actor Invitee as Invitee
+    Owner->>Member: POST /api/projects/{id}/members
+    Member->>Project: invite(projectId, owner, username, role)
+    Project->>Project: requireAdmin(owner)
+    Project->>Mongo: create invitation (pending)
+    Invitee->>Member: POST /api/invitations/{id}/accept
+    Member->>Project: accept(invitationId, invitee)
+    Project->>Mongo: push member onto project
+    Project-->>Invitee: joined project
