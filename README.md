@@ -16,7 +16,7 @@
 <td>
 
 ### 🎯 Latest Challenge: #010 — *Ticketee*
-**Status:** 🟢 Live now · Solution will be posted on **Nov 27, 2026**
+**Status:** 🟢 Live now · Solution will be posted on **Nov 26, 2026**
 
 [Start the challenge →](./challenges/010-ticketee/)
 
