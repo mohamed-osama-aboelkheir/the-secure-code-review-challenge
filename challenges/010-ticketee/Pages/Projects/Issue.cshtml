@@ -1,0 +1,80 @@
+@page "/projects/{key}/issues/{issueKey}"
+@model IssueModel
+@inject Ticketee.Services.MarkdownRenderer Markdown
+@{
+    ViewData["Title"] = $"{Model.Issue.Key} {Model.Issue.Title}";
+    ViewData["Nav"] = "projects";
+    ViewData["Tab"] = "issues";
+}
+<partial name="_ProjectHeader" model="Model" />
+
+<div class="issue-layout">
+    <article class="card issue-main">
+        <div class="issue-crumb">
+            <partial name="_TypeIcon" model="Model.Issue.Type" />
+            <span class="mono">@Model.Issue.Key</span>
+        </div>
+        <h1 class="issue-title">@Model.Issue.Title</h1>
+        <div class="issue-toolbar">
+            <a class="btn btn-secondary btn-sm" href="/projects/@Model.Project.Key/issues/@Model.Issue.Key/edit">Edit</a>
+        </div>
+        <h4 class="section-label">Description</h4>
+        <div class="markdown-body">
+            @if (string.IsNullOrWhiteSpace(Model.Issue.Body))
+            {
+                <p class="muted">No description yet. <a href="/projects/@Model.Project.Key/issues/@Model.Issue.Key/edit">Add one</a>.</p>
+            }
+            else
+            {
+                @Markdown.Render(Model.Issue.Body)
+            }
+        </div>
+    </article>
+
+    <aside class="card issue-side">
+        <form method="post" class="form">
+            <label>Status
+                <select name="Status" class="status-select status-@Model.Issue.Status">
+                    @foreach (var s in IssueStatuses.All)
+                    {
+                        <option value="@s" selected="@(Model.Issue.Status == s)">@IssueStatuses.Label(s)</option>
+                    }
+                </select>
+            </label>
+            <label>Assignee
+                <select name="AssigneeId">
+                    <option value="">Unassigned</option>
+                    @foreach (var m in Model.Members)
+                    {
+                        <option value="@m.Id" selected="@(Model.Issue.AssigneeId == m.Id)">@m.Name</option>
+                    }
+                </select>
+            </label>
+            <label>Priority
+                <select name="Priority">
+                    @foreach (var p in IssuePriorities.All)
+                    {
+                        <option value="@p" selected="@(Model.Issue.Priority == p)">@Ui.Capitalize(p)</option>
+                    }
+                </select>
+            </label>
+            <label>Type
+                <select name="Type">
+                    @foreach (var t in IssueTypes.All)
+                    {
+                        <option value="@t" selected="@(Model.Issue.Type == t)">@Ui.Capitalize(t)</option>
+                    }
+                </select>
+            </label>
+            <button type="submit" class="btn btn-primary btn-block">Save changes</button>
+        </form>
+        <dl class="meta">
+            <dt>Reporter</dt>
+            <dd><partial name="_Avatar" model="Model.Issue.Reporter" /> @Model.Issue.Reporter?.Name</dd>
+            <dt>Created</dt>
+            <dd>@Model.Issue.CreatedAt.ToString("dd MMM yyyy, HH:mm") UTC</dd>
+            <dt>Updated</dt>
+            <dd>@Ui.Ago(Model.Issue.UpdatedAt)</dd>
+        </dl>
+    </aside>
+</div>

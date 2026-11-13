@@ -1,0 +1,19 @@
+@model string
+@switch (Model)
+{
+    case IssueTypes.Bug:
+        <span class="type-icon type-bug" title="Bug">
+            <svg viewBox="0 0 16 16" width="16" height="16"><rect width="16" height="16" rx="3" /><circle cx="8" cy="8" r="3.2" fill="#fff" /></svg>
+        </span>
+        break;
+    case IssueTypes.Story:
+        <span class="type-icon type-story" title="Story">
+            <svg viewBox="0 0 16 16" width="16" height="16"><rect width="16" height="16" rx="3" /><path d="M5 3.5h6v9L8 10.3 5 12.5z" fill="#fff" /></svg>
+        </span>
+        break;
+    default:
+        <span class="type-icon type-task" title="Task">
+            <svg viewBox="0 0 16 16" width="16" height="16"><rect width="16" height="16" rx="3" /><path d="M4.5 8.2l2.4 2.4 4.6-5" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </span>
+        break;
+}

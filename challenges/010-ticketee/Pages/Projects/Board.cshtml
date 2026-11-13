@@ -1,0 +1,46 @@
+@page "/projects/{key}"
+@model BoardModel
+@{
+    ViewData["Title"] = $"{Model.Project.Name} board";
+    ViewData["Nav"] = "projects";
+    ViewData["Tab"] = "board";
+}
+<partial name="_ProjectHeader" model="Model" />
+
+<form id="move-form" method="post" asp-page-handler="Move" class="hidden">
+    <input type="hidden" name="IssueKey" />
+    <input type="hidden" name="Status" />
+</form>
+
+<div class="board">
+    @foreach (var status in IssueStatuses.All)
+    {
+        var column = Model.Issues.Where(i => i.Status == status).ToList();
+        <section class="column" data-status="@status">
+            <header class="column-head">
+                <span class="status-dot status-@status"></span>
+                <span>@IssueStatuses.Label(status)</span>
+                <span class="count">@column.Count</span>
+            </header>
+            <div class="column-body">
+                @foreach (var issue in column)
+                {
+                    <a class="issue-card" draggable="true" data-issue="@issue.Key" href="/projects/@Model.Project.Key/issues/@issue.Key">
+                        <div class="issue-card-title">@issue.Title</div>
+                        <div class="issue-card-foot">
+                            <partial name="_TypeIcon" model="issue.Type" />
+                            <span class="mono issue-key">@issue.Key</span>
+                            <span class="spacer"></span>
+                            <partial name="_PriorityIcon" model="issue.Priority" />
+                            <partial name="_Avatar" model="issue.Assignee" />
+                        </div>
+                    </a>
+                }
+                @if (column.Count == 0)
+                {
+                    <div class="column-empty">Drop issues here</div>
+                }
+            </div>
+        </section>
+    }
+</div>

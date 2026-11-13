@@ -15,10 +15,10 @@
 <tr>
 <td>
 
-### 🎯 Latest Challenge: #009 — *ProjectHub*
-**Status:** ✅ Solution posted · Next challenge coming soon
+### 🎯 Latest Challenge: #010 — *Ticketee*
+**Status:** 🟢 Live now · Solution will be posted on **Nov 27, 2026**
 
-[Start the challenge →](./challenges/009-projecthub/)
+[Start the challenge →](./challenges/010-ticketee/)
 
 </td>
 <td>

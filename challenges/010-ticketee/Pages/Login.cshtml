@@ -1,0 +1,22 @@
+@page "/login"
+@model LoginModel
+@{
+    ViewData["Title"] = "Log in";
+    ViewData["BodyClass"] = "auth";
+}
+<div class="auth-card">
+    <div class="auth-logo"><partial name="_Logo" model="56" /></div>
+    <h1>Welcome back</h1>
+    <p class="muted">Log in to pick up where your team left off.</p>
+    @if (!string.IsNullOrEmpty(Model.Error))
+    {
+        <div class="alert alert-error">@Model.Error</div>
+    }
+    <form method="post" class="form">
+        <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl" />
+        <label>Email <input type="email" name="Email" value="@Model.Email" autocomplete="email" required /></label>
+        <label>Password <input type="password" name="Password" autocomplete="current-password" required /></label>
+        <button type="submit" class="btn btn-primary btn-block">Log in</button>
+    </form>
+    <p class="auth-switch">New to Ticketee? <a href="/register">Create an account</a></p>
+</div>

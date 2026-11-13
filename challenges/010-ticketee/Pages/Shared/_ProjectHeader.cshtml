@@ -1,0 +1,42 @@
+@model ProjectPageModel
+@{
+    var tab = ViewData["Tab"] as string;
+}
+<div class="project-header">
+    <div class="project-title">
+        <span class="project-badge @Ui.ColorClass(Model.Project.Key)">@Model.Project.Key[..1]</span>
+        <div>
+            <div class="crumbs"><a href="/projects">Projects</a> / <span class="mono">@Model.Project.Key</span></div>
+            <h1>@Model.Project.Name</h1>
+        </div>
+    </div>
+    <div class="project-actions">
+        <div class="avatar-stack">
+            @foreach (var member in Model.Members.Take(5))
+            {
+                <partial name="_Avatar" model="member" />
+            }
+            @if (Model.Members.Count > 5)
+            {
+                <span class="avatar avatar-more">+@(Model.Members.Count - 5)</span>
+            }
+        </div>
+        <a class="btn btn-primary" href="/projects/@Model.Project.Key/issues/new">
+            <svg viewBox="0 0 16 16" width="14" height="14"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+            Create issue
+        </a>
+    </div>
+</div>
+<nav class="tabs">
+    <a href="/projects/@Model.Project.Key" class="@(tab == "board" ? "active" : "")">Board</a>
+    <a href="/projects/@Model.Project.Key/issues" class="@(tab == "issues" ? "active" : "")">Issues</a>
+    <a href="/projects/@Model.Project.Key/members" class="@(tab == "members" ? "active" : "")">Members</a>
+</nav>
+@if (!string.IsNullOrEmpty(Model.Flash))
+{
+    <div class="alert alert-success">@Model.Flash</div>
+}
+@if (!string.IsNullOrEmpty(Model.Error))
+{
+    <div class="alert alert-error">@Model.Error</div>
+}

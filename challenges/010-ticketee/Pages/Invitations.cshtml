@@ -1,0 +1,20 @@
+@page "/invitations"
+@model InvitationsModel
+@{
+    ViewData["Title"] = "Join a project";
+    ViewData["Nav"] = "invitations";
+}
+<div class="narrow">
+    <h1>Join a project</h1>
+    <p class="muted">Project leads invite teammates by email. Paste the invitation code you were given to join the project.</p>
+    @if (!string.IsNullOrEmpty(Model.Error))
+    {
+        <div class="alert alert-error">@Model.Error</div>
+    }
+    <form method="post" class="card form form-inline">
+        <label class="grow">Invitation code
+            <input type="text" name="Code" value="@Model.Code" class="mono" placeholder="e.g. 3f9c2a…" autocomplete="off" required />
+        </label>
+        <button type="submit" class="btn btn-primary">Accept invitation</button>
+    </form>
+</div>

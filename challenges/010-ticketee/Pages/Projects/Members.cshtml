@@ -1,0 +1,67 @@
+@page "/projects/{key}/members"
+@model MembersModel
+@{
+    ViewData["Title"] = $"{Model.Project.Name} members";
+    ViewData["Nav"] = "projects";
+    ViewData["Tab"] = "members";
+}
+<partial name="_ProjectHeader" model="Model" />
+
+<div class="members-layout">
+    <div class="card">
+        <h2>Members <span class="count">@Model.Members.Count</span></h2>
+        <ul class="member-list">
+            @foreach (var member in Model.Members)
+            {
+                <li>
+                    <partial name="_Avatar" model="member" />
+                    <div class="grow">
+                        <div>@member.Name</div>
+                        <div class="muted small">@member.Email</div>
+                    </div>
+                    @if (member.Id == Model.Project.LeadId)
+                    {
+                        <span class="role-pill">Project lead</span>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+
+    @if (Model.IsLead)
+    {
+        <div class="card">
+            <h2>Invite a teammate</h2>
+            <p class="muted">Send an invitation to their email address, then share the code with them.
+                They join the project once they accept it from <strong>Join a project</strong>.</p>
+            <form method="post" class="form form-inline">
+                <label class="grow">Email <input type="email" name="Email" maxlength="255" placeholder="teammate@company.com" required /></label>
+                <button type="submit" class="btn btn-primary">Create invitation</button>
+            </form>
+            @if (Model.PendingInvitations.Count > 0)
+            {
+                <h3>Pending invitations</h3>
+                <ul class="invite-list">
+                    @foreach (var invitation in Model.PendingInvitations)
+                    {
+                        <li>
+                            <div class="grow">
+                                <div>@invitation.Email</div>
+                                <div class="muted small">Created @Ui.Ago(invitation.CreatedAt)</div>
+                            </div>
+                            <code class="invite-code">@invitation.Code</code>
+                            <button type="button" class="btn btn-ghost btn-sm" data-copy="@invitation.Code">Copy</button>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="card">
+            <h2>Invite a teammate</h2>
+            <p class="muted">Only the project lead, @Model.Project.Lead?.Name, can invite new members.</p>
+        </div>
+    }
+</div>

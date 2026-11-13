@@ -1,0 +1,11 @@
+@model User?
+@if (Model is null)
+{
+    <span class="avatar avatar-empty" title="Unassigned">
+        <svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="5.5" r="3" fill="currentColor" /><path d="M2.5 14c.6-3 2.8-4.6 5.5-4.6s4.9 1.6 5.5 4.6" fill="currentColor" /></svg>
+    </span>
+}
+else
+{
+    <span class="avatar @Ui.ColorClass(Model.Email ?? "")" title="@Model.Name">@Ui.Initials(Model.Name)</span>
+}

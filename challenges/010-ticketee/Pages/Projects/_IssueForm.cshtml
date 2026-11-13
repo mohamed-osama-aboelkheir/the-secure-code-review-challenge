@@ -1,0 +1,50 @@
+@model IssueFormModel
+<form method="post" action="@Context.Request.Path" asp-antiforgery="true" class="form issue-form">
+    <label>Summary
+        <input type="text" name="Title" value="@Model.Title" maxlength="200" placeholder="What needs to be done?" required />
+    </label>
+    <div class="form-row">
+        <label>Type
+            <select name="Type">
+                @foreach (var t in IssueTypes.All)
+                {
+                    <option value="@t" selected="@(Model.Type == t)">@Ui.Capitalize(t)</option>
+                }
+            </select>
+        </label>
+        <label>Priority
+            <select name="Priority">
+                @foreach (var p in IssuePriorities.All)
+                {
+                    <option value="@p" selected="@(Model.Priority == p)">@Ui.Capitalize(p)</option>
+                }
+            </select>
+        </label>
+        <label>Assignee
+            <select name="AssigneeId">
+                <option value="">Unassigned</option>
+                @foreach (var m in Model.Members)
+                {
+                    <option value="@m.Id" selected="@(Model.AssigneeId == m.Id)">@m.Name</option>
+                }
+            </select>
+        </label>
+    </div>
+    <div class="editor">
+        <div class="editor-tabs">
+            <span class="@(Model.Preview is null ? "active" : "")">Write</span>
+            <button type="submit" formaction="?handler=Preview" formnovalidate class="@(Model.Preview is not null ? "active" : "")">Preview</button>
+            <span class="spacer"></span>
+            <span class="hint">Markdown supported: **bold**, `code`, lists, - [ ] tasks, tables, links</span>
+        </div>
+        <textarea name="Body" rows="12" maxlength="20000" placeholder="Describe the issue. Markdown is supported.">@Model.Body</textarea>
+        @if (Model.Preview is not null)
+        {
+            <div class="markdown-body preview">@Model.Preview</div>
+        }
+    </div>
+    <div class="form-actions">
+        <a class="btn btn-ghost" href="@Model.CancelUrl">Cancel</a>
+        <button type="submit" class="btn btn-primary">@Model.SubmitLabel</button>
+    </div>
+</form>

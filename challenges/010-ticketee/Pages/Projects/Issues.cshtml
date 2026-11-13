@@ -1,0 +1,100 @@
+@page "/projects/{key}/issues"
+@model IssuesModel
+@inject Ticketee.Services.MarkdownRenderer Markdown
+@{
+    ViewData["Title"] = $"{Model.Project.Name} issues";
+    ViewData["Nav"] = "projects";
+    ViewData["Tab"] = "issues";
+}
+<partial name="_ProjectHeader" model="Model" />
+
+<div class="toolbar">
+    <form method="get" class="filters">
+        <label class="sr-only" for="status">Status</label>
+        <select id="status" name="status" data-autosubmit>
+            <option value="">All statuses</option>
+            @foreach (var s in IssueStatuses.All)
+            {
+                <option value="@s" selected="@(Model.Status == s)">@IssueStatuses.Label(s)</option>
+            }
+        </select>
+    </form>
+    @if (Model.Selected.Count > 0)
+    {
+        <div class="selection-banner">
+            Showing @Model.Issues.Count selected issue@(Model.Issues.Count == 1 ? "" : "s")
+            <a href="/projects/@Model.Project.Key/issues">Clear selection</a>
+        </div>
+    }
+</div>
+
+<form method="get" id="select-form">
+    <div class="card table-card">
+        <table class="issue-table">
+            <thead>
+                <tr>
+                    <th class="col-check"><input type="checkbox" data-select-all aria-label="Select all" /></th>
+                    <th>Key</th>
+                    <th>Summary</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Assignee</th>
+                    <th>Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var issue in Model.Issues)
+                {
+                    <tr>
+                        <td class="col-check"><input type="checkbox" name="issueKeys" value="@issue.Key" data-select aria-label="Select @issue.Key" /></td>
+                        <td class="nowrap"><partial name="_TypeIcon" model="issue.Type" /> <a class="mono" href="/projects/@issue.ProjectKey/issues/@issue.Key">@issue.Key</a></td>
+                        <td><a href="/projects/@issue.ProjectKey/issues/@issue.Key">@issue.Title</a></td>
+                        <td><span class="status-pill status-@issue.Status">@IssueStatuses.Label(issue.Status)</span></td>
+                        <td class="nowrap"><partial name="_PriorityIcon" model="issue.Priority" /> @Ui.Capitalize(issue.Priority)</td>
+                        <td class="nowrap"><partial name="_Avatar" model="issue.Assignee" /> @(issue.Assignee?.Name ?? "Unassigned")</td>
+                        <td class="nowrap muted">@Ui.Ago(issue.UpdatedAt)</td>
+                    </tr>
+                }
+                @if (Model.Issues.Count == 0)
+                {
+                    <tr><td colspan="7" class="table-empty">No issues match. <a href="/projects/@Model.Project.Key/issues/new">Create one</a>.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="table-actions">
+        <button type="submit" class="btn btn-secondary" data-open-selected disabled>Open selected</button>
+        <span class="hint">Tick a few issues to view them together. Share the link with your team.</span>
+    </div>
+</form>
+
+@if (Model.Selected.Count > 0 && Model.Issues.Count > 0)
+{
+    <section class="selected-details">
+        @foreach (var issue in Model.Issues)
+        {
+            <article class="card issue-summary">
+                <header>
+                    <partial name="_TypeIcon" model="issue.Type" />
+                    <span class="mono">@issue.Key</span>
+                    <h3>@issue.Title</h3>
+                    <span class="spacer"></span>
+                    <span class="status-pill status-@issue.Status">@IssueStatuses.Label(issue.Status)</span>
+                </header>
+                <div class="markdown-body">
+                    @if (string.IsNullOrWhiteSpace(issue.Body))
+                    {
+                        <p class="muted">No description.</p>
+                    }
+                    else
+                    {
+                        @Markdown.Render(issue.Body)
+                    }
+                </div>
+                <footer class="muted">
+                    Reported by @issue.Reporter?.Name · Assigned to @(issue.Assignee?.Name ?? "nobody") · Updated @Ui.Ago(issue.UpdatedAt)
+                </footer>
+            </article>
+        }
+    </section>
+}

@@ -1,0 +1,61 @@
+@page "/projects"
+@model ProjectsIndexModel
+@{
+    ViewData["Title"] = "Projects";
+    ViewData["Nav"] = "projects";
+}
+<div class="page-head">
+    <div>
+        <h1>Your projects</h1>
+        <p class="muted">Projects you lead or have joined.</p>
+    </div>
+</div>
+@if (!string.IsNullOrEmpty(Model.Flash))
+{
+    <div class="alert alert-success">@Model.Flash</div>
+}
+@if (!string.IsNullOrEmpty(Model.Error))
+{
+    <div class="alert alert-error">@Model.Error</div>
+}
+<div class="projects-layout">
+    <div class="project-grid">
+        @if (Model.ProjectList.Count == 0)
+        {
+            <div class="empty-state card">
+                <partial name="_Logo" model="64" />
+                <h2>No projects yet</h2>
+                <p class="muted">Create your first project, or <a href="/invitations">join one</a> with an invitation code.</p>
+            </div>
+        }
+        @foreach (var project in Model.ProjectList)
+        {
+            <a class="project-card card" href="/projects/@project.Key">
+                <div class="project-card-top">
+                    <span class="project-badge @Ui.ColorClass(project.Key)">@project.Key[..1]</span>
+                    <div>
+                        <div class="project-card-name">@project.Name</div>
+                        <div class="mono muted">@project.Key</div>
+                    </div>
+                </div>
+                @if (!string.IsNullOrEmpty(project.Description))
+                {
+                    <p class="project-card-desc">@project.Description</p>
+                }
+                <div class="project-card-meta">
+                    <span>@(Model.IssueCounts.GetValueOrDefault(project.Id)) issues</span>
+                    <span>Lead: @project.Lead?.Name</span>
+                </div>
+            </a>
+        }
+    </div>
+    <aside class="card side-form">
+        <h2>New project</h2>
+        <form method="post" class="form">
+            <label>Name <input type="text" name="Name" maxlength="200" placeholder="Apollo Mission" required /></label>
+            <label>Description <textarea name="Description" rows="3" maxlength="1000" placeholder="What is this project about?"></textarea></label>
+            <span class="hint">The project key is made from the first four letters of the name.</span>
+            <button type="submit" class="btn btn-primary btn-block">Create project</button>
+        </form>
+    </aside>
+</div>

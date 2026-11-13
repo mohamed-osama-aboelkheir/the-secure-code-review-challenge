@@ -1,0 +1,51 @@
+@page "/"
+@model IndexModel
+@{
+    ViewData["Title"] = "Issue tracking for small teams";
+    ViewData["BodyClass"] = "landing";
+}
+<section class="hero">
+    <div class="hero-copy">
+        <span class="pill">Boards · Issues · Teams</span>
+        <h1>Track the work,<br /><span class="gradient-text">not the chaos.</span></h1>
+        <p class="lead">Ticketee gives every project a key, every issue a home and every team a board.
+            Write issues in Markdown, drag them across the board and invite your teammates in seconds.</p>
+        <div class="hero-actions">
+            <a class="btn btn-primary btn-lg" href="/register">Create a free account</a>
+            <a class="btn btn-ghost btn-lg" href="/login">I already have one</a>
+        </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+        <div class="mini-board">
+            <div class="mini-col">
+                <div class="mini-col-title">To Do</div>
+                <div class="mini-card"><span class="mono">APOL-004</span> Fuel checklist</div>
+                <div class="mini-card"><span class="mono">APOL-007</span> Launch window doc</div>
+            </div>
+            <div class="mini-col">
+                <div class="mini-col-title">In Progress</div>
+                <div class="mini-card mini-card-hot"><span class="mono">APOL-002</span> Guidance telemetry</div>
+            </div>
+            <div class="mini-col">
+                <div class="mini-col-title">Done</div>
+                <div class="mini-card mini-card-done"><span class="mono">APOL-001</span> Kick-off</div>
+            </div>
+        </div>
+        <div class="hero-logo"><partial name="_Logo" model="120" /></div>
+    </div>
+</section>
+<section class="features">
+    <div class="feature">
+        <h3>Project keys</h3>
+        <p>Name a project and Ticketee gives it a short key. <span class="mono">Apollo Mission</span> becomes
+            <span class="mono">APOL</span>, and its issues are <span class="mono">APOL-001</span>, <span class="mono">APOL-002</span>…</p>
+    </div>
+    <div class="feature">
+        <h3>Boards that move</h3>
+        <p>Drag cards between To Do, In Progress and Done, or filter the issue list and open a handful at once.</p>
+    </div>
+    <div class="feature">
+        <h3>Markdown issues</h3>
+        <p>Checklists, tables, code blocks and links. Write it once and it renders beautifully for the whole team.</p>
+    </div>
+</section>

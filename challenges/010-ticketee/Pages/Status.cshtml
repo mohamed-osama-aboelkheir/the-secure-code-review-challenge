@@ -1,0 +1,11 @@
+@page "/status/{code:int}"
+@model StatusModel
+@{
+    ViewData["Title"] = Model.Heading;
+}
+<div class="empty-state status-page">
+    <div class="status-code">@Model.Code</div>
+    <h1>@Model.Heading</h1>
+    <p class="muted">@Model.Message</p>
+    <a class="btn btn-primary" href="/projects">Back to your projects</a>
+</div>

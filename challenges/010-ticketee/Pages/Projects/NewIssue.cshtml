@@ -1,0 +1,11 @@
+@page "/projects/{key}/issues/new"
+@model NewIssueModel
+@{
+    ViewData["Title"] = "Create issue";
+    ViewData["Nav"] = "projects";
+}
+<partial name="_ProjectHeader" model="Model" />
+<div class="card form-card">
+    <h2>Create issue</h2>
+    <partial name="_IssueForm" model="Model.Form()" />
+</div>

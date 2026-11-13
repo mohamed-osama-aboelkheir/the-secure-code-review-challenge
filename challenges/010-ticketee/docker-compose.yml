@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:16
+    container_name: ticketee_db
+    environment:
+      POSTGRES_DB: ticketee
+      POSTGRES_USER: ticketee
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ticketee -d ticketee"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - app-network
+
+  app:
+    build: .
+    container_name: ticketee_app
+    ports:
+      - "3000:3000"
+    environment:
+      ConnectionStrings__Default: Host=db;Port=5432;Database=ticketee;Username=ticketee;Password=${POSTGRES_PASSWORD}
+    env_file:
+      - .env
+    volumes:
+      - app_keys:/app/keys
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  app_keys:

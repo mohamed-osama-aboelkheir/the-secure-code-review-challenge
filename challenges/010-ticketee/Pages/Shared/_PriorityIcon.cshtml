@@ -1,0 +1,18 @@
+@model string
+<span class="priority-icon priority-@Model" title="@Ui.Capitalize(Model) priority">
+    @switch (Model)
+    {
+        case IssuePriorities.Critical:
+            <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3.5 8.5L8 4l4.5 4.5M3.5 12.5L8 8l4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            break;
+        case IssuePriorities.High:
+            <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3.5 10.5L8 6l4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            break;
+        case IssuePriorities.Low:
+            <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3.5 5.5L8 10l4.5-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            break;
+        default:
+            <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3.5 6h9M3.5 10h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+            break;
+    }
+</span>

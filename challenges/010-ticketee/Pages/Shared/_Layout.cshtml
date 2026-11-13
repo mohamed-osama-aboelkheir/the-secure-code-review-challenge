@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@(ViewData["Title"] is string t ? $"{t} · Ticketee" : "Ticketee")</title>
+    <link rel="icon" type="image/svg+xml" href="~/img/logo.svg" />
+    <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
+    <script src="~/js/app.js" asp-append-version="true" defer></script>
+</head>
+<body class="@(ViewData["BodyClass"] ?? "")">
+    <header class="topbar">
+        <a class="brand" href="@(User.Identity?.IsAuthenticated == true ? "/projects" : "/")">
+            <partial name="_Logo" model="30" />
+            <span class="brand-name">Ticketee</span>
+        </a>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <nav class="topnav">
+                <a href="/projects" class="@(ViewData["Nav"] as string == "projects" ? "active" : "")">Projects</a>
+                <a href="/invitations" class="@(ViewData["Nav"] as string == "invitations" ? "active" : "")">Join a project</a>
+            </nav>
+            <div class="topbar-user">
+                <span class="avatar @Ui.ColorClass(User.GetEmail()) avatar-sm">@Ui.Initials(User.GetDisplayName())</span>
+                <span class="topbar-name">@User.GetDisplayName()</span>
+                <form method="post" action="/logout">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-ghost btn-sm">Log out</button>
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="topbar-user">
+                <a class="btn btn-ghost btn-sm" href="/login">Log in</a>
+                <a class="btn btn-primary btn-sm" href="/register">Sign up</a>
+            </div>
+        }
+    </header>
+
+    <main class="page">
+        @RenderBody()
+    </main>
+
+    <footer class="footer">
+        <partial name="_Logo" model="16" /> Ticketee · track the work, not the chaos
+    </footer>
+</body>
+</html>

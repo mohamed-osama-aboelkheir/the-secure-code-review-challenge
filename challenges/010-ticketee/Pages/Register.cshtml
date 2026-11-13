@@ -1,0 +1,23 @@
+@page "/register"
+@model RegisterModel
+@{
+    ViewData["Title"] = "Sign up";
+    ViewData["BodyClass"] = "auth";
+}
+<div class="auth-card">
+    <div class="auth-logo"><partial name="_Logo" model="56" /></div>
+    <h1>Create your account</h1>
+    <p class="muted">Start a project, invite your team, ship the backlog.</p>
+    @if (!string.IsNullOrEmpty(Model.Error))
+    {
+        <div class="alert alert-error">@Model.Error</div>
+    }
+    <form method="post" class="form">
+        <label>Full name <input type="text" name="Name" value="@Model.Name" maxlength="100" autocomplete="name" required /></label>
+        <label>Email <input type="email" name="Email" value="@Model.Email" maxlength="255" autocomplete="email" required /></label>
+        <label>Password <input type="password" name="Password" minlength="8" maxlength="128" autocomplete="new-password" required />
+            <span class="hint">At least 8 characters.</span></label>
+        <button type="submit" class="btn btn-primary btn-block">Create account</button>
+    </form>
+    <p class="auth-switch">Already have an account? <a href="/login">Log in</a></p>
+</div>
